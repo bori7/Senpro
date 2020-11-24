@@ -292,11 +292,11 @@ window.onscroll = ()=>  {scrollFunction()};
                             <div className="col-md-3">
                                 <div className="btn-group btn-group-toggle space-radio" data-toggle="buttons">
                                     <label className="custom-choice btn btn-secondary ">
-                                    <input type="radio" name="option1" id="option1" value = 'yes' autoComplete="off"  /> Yes
+                                    <input type="radio" name="option1" id="option1" value = 'yes' autoComplete="off" required  /> Yes
                                     </label>
                                     
                                     <label className="custom-choice btn btn-secondary">
-                                    <input type="radio" name="option1" id="option1" value = 'no' autoComplete="off" /> No
+                                    <input type="radio" name="option1" id="option1" value = 'no' autoComplete="off" required  /> No
                                     </label>
                                 </div>
                             </div>
@@ -308,11 +308,11 @@ window.onscroll = ()=>  {scrollFunction()};
                             <div className="col-md-3">
                                 <div className="btn-group btn-group-toggle space-radio" data-toggle="buttons">
                                     <label className="custom-choice btn btn-secondary ">
-                                    <input type="radio" name="option2" id="option2" value = 'yes' autoComplete="off"  /> Yes
+                                    <input type="radio" name="option2" id="option2" value = 'yes' autoComplete="off" required  /> Yes
                                     </label>
                                     
                                     <label className="custom-choice btn btn-secondary">
-                                    <input type="radio" name="option2" id="option2" value = 'no' autoComplete="off" /> No
+                                    <input type="radio" name="option2" id="option2" value = 'no' autoComplete="off" required /> No
                                     </label>
                                 </div>
                             </div>
@@ -325,11 +325,11 @@ window.onscroll = ()=>  {scrollFunction()};
                             <div className="col-md-3">
                                 <div className="btn-group btn-group-toggle space-radio" data-toggle="buttons">
                                     <label className="custom-choice btn btn-secondary ">
-                                    <input type="radio" name="option3" id="option3" value = 'yes' autoComplete="off"  /> Yes
+                                    <input type="radio" name="option3" id="option3" value = 'yes' autoComplete="off" required  /> Yes
                                     </label>
                                     
                                     <label className="custom-choice btn btn-secondary">
-                                    <input type="radio" name="option3" id="option3" value = 'no' autoComplete="off" /> No
+                                    <input type="radio" name="option3" id="option3" value = 'no' autoComplete="off" required /> No
                                     </label>
                                 </div>
                             </div>
@@ -342,11 +342,11 @@ window.onscroll = ()=>  {scrollFunction()};
                             <div className="col-md-3">
                                 <div className="btn-group btn-group-toggle space-radio" data-toggle="buttons">
                                     <label className="custom-choice btn btn-secondary ">
-                                    <input type="radio" name="option4" id="option4" value = 'yes' autoComplete="off"  /> Yes
+                                    <input type="radio" name="option4" id="option4" value = 'yes' autoComplete="off" required  /> Yes
                                     </label>
                                     
                                     <label className="custom-choice btn btn-secondary">
-                                    <input type="radio" name="option4" id="option4" value = 'no' autoComplete="off" /> No
+                                    <input type="radio" name="option4" id="option4" value = 'no' autoComplete="off" required /> No
                                     </label>
                                 </div>
                             </div>
@@ -361,11 +361,11 @@ window.onscroll = ()=>  {scrollFunction()};
                             <div className="col-md-3">
                                 <div className="btn-group btn-group-toggle space-radio" data-toggle="buttons">
                                     <label className="custom-choice btn btn-secondary ">
-                                    <input type="radio" name="option5" id="option5" value = 'yes' autoComplete="off"  /> Yes
+                                    <input type="radio" name="option5" id="option5" value = 'yes' autoComplete="off"  required /> Yes
                                     </label>
                                     
                                     <label className="custom-choice btn btn-secondary">
-                                    <input type="radio" name="option5" id="option5" value = 'no' autoComplete="off" /> No
+                                    <input type="radio" name="option5" id="option5" value = 'no' autoComplete="off" required /> No
                                     </label>
                                 </div>
                             </div>
@@ -384,11 +384,11 @@ window.onscroll = ()=>  {scrollFunction()};
                             <div className="col-md-3">
                                 <div className="btn-group btn-group-toggle space-radio" data-toggle="buttons">
                                     <label className="custom-choice btn btn-secondary ">
-                                    <input type="radio" name="option6" id="option6" value = 'yes' autoComplete="off"  /> Yes
+                                    <input type="radio" name="option6" id="option6" value = 'yes' autoComplete="off" required  /> Yes
                                     </label>
                                     
                                     <label className="custom-choice btn btn-secondary">
-                                    <input type="radio" name="option6" id="option6" value = 'no' autoComplete="off" /> No
+                                    <input type="radio" name="option6" id="option6" value = 'no' autoComplete="off" required /> No
                                     </label>
                                 </div>
                             </div>
@@ -405,11 +405,11 @@ window.onscroll = ()=>  {scrollFunction()};
                             <div className="col-md-3">
                                 <div className="btn-group btn-group-toggle space-radio" data-toggle="buttons">
                                     <label className="custom-choice btn btn-secondary ">
-                                    <input type="radio" name="option7" id="option7" value = 'yes' autoComplete="off"  /> Yes
+                                    <input type="radio" name="option7" id="option7" value = 'yes' autoComplete="off" required  /> Yes
                                     </label>
                                     
                                     <label className="custom-choice btn btn-secondary">
-                                    <input type="radio" name="option7" id="option7" value = 'no' autoComplete="off" /> No
+                                    <input type="radio" name="option7" id="option7" value = 'no' autoComplete="off" required /> No
                                     </label>
                                 </div>
                             </div>
@@ -422,11 +422,11 @@ window.onscroll = ()=>  {scrollFunction()};
                             <div className="col-md-3">
                                 <div className="btn-group btn-group-toggle space-radio" data-toggle="buttons">
                                     <label className="custom-choice btn btn-secondary ">
-                                    <input type="radio" name="option8" id="option8" value = 'yes' autoComplete="off"  /> Yes
+                                    <input type="radio" name="option8" id="option8" value = 'yes' autoComplete="off"  required /> Yes
                                     </label>
                                     
                                     <label className="custom-choice btn btn-secondary">
-                                    <input type="radio" name="option8" id="option8" value = 'no' autoComplete="off" /> No
+                                    <input type="radio" name="option8" id="option8" value = 'no' autoComplete="off" required /> No
                                     </label>
                                 </div>
                             </div>
@@ -438,11 +438,11 @@ window.onscroll = ()=>  {scrollFunction()};
                             <div className="col-md-3">
                                 <div className="btn-group btn-group-toggle space-radio" data-toggle="buttons">
                                     <label className="custom-choice btn btn-secondary ">
-                                    <input type="radio" name="option9" id="option9" value = 'yes' autoComplete="off"  /> Yes
+                                    <input type="radio" name="option9" id="option9" value = 'yes' autoComplete="off" required  /> Yes
                                     </label>
                                     
                                     <label className="custom-choice btn btn-secondary">
-                                    <input type="radio" name="option9" id="option9" value = 'no' autoComplete="off" /> No
+                                    <input type="radio" name="option9" id="option9" value = 'no' autoComplete="off" required /> No
                                     </label>
                                 </div>
                             </div>
@@ -463,11 +463,11 @@ window.onscroll = ()=>  {scrollFunction()};
                             <div className="col-md-3">
                                 <div className="btn-group btn-group-toggle space-radio" data-toggle="buttons">
                                     <label className="custom-choice btn btn-secondary ">
-                                    <input type="radio" name="option10" id="option10" value = 'yes' autoComplete="off"  /> Yes
+                                    <input type="radio" name="option10" id="option10" value = 'yes' autoComplete="off" required  /> Yes
                                     </label>
                                     
                                     <label className="custom-choice btn btn-secondary">
-                                    <input type="radio" name="option10" id="option10" value = 'no' autoComplete="off" /> No
+                                    <input type="radio" name="option10" id="option10" value = 'no' autoComplete="off" required /> No
                                     </label>
                                 </div>
                             </div>
@@ -481,11 +481,11 @@ window.onscroll = ()=>  {scrollFunction()};
                             <div className="col-md-3">
                                 <div className="btn-group btn-group-toggle space-radio" data-toggle="buttons">
                                     <label className="custom-choice btn btn-secondary ">
-                                    <input type="radio" name="option11" id="option11" value = 'yes' autoComplete="off"  /> Yes
+                                    <input type="radio" name="option11" id="option11" value = 'yes' autoComplete="off" required  /> Yes
                                     </label>
                                     
                                     <label className="custom-choice btn btn-secondary">
-                                    <input type="radio" name="option11" id="option11" value = 'no' autoComplete="off" /> No
+                                    <input type="radio" name="option11" id="option11" value = 'no' autoComplete="off" required  /> No
                                     </label>
                                 </div>
                             </div>
@@ -502,11 +502,11 @@ window.onscroll = ()=>  {scrollFunction()};
                             <div className="col-md-3">
                                 <div className="btn-group btn-group-toggle space-radio" data-toggle="buttons">
                                     <label className="custom-choice btn btn-secondary ">
-                                    <input type="radio" name="option12" id="option12" value = 'yes' autoComplete="off"  /> Yes
+                                    <input type="radio" name="option12" id="option12" value = 'yes' autoComplete="off" required  /> Yes
                                     </label>
                                     
                                     <label className="custom-choice btn btn-secondary">
-                                    <input type="radio" name="option12" id="option12" value = 'no' autoComplete="off" /> No
+                                    <input type="radio" name="option12" id="option12" value = 'no' autoComplete="off" required /> No
                                     </label>
                                 </div>
                             </div>
@@ -519,11 +519,11 @@ window.onscroll = ()=>  {scrollFunction()};
                             <div className="col-md-3">
                                 <div className="btn-group btn-group-toggle space-radio" data-toggle="buttons">
                                     <label className="custom-choice btn btn-secondary ">
-                                    <input type="radio" name="option13" id="option13" value = 'yes' autoComplete="off"  /> Yes
+                                    <input type="radio" name="option13" id="option13" value = 'yes' autoComplete="off"required /> Yes
                                     </label>
                                     
                                     <label className="custom-choice btn btn-secondary">
-                                    <input type="radio" name="option13" id="option13" value = 'no' autoComplete="off" /> No
+                                    <input type="radio" name="option13" id="option13" value = 'no' autoComplete="off" required /> No
                                     </label>
                                 </div>
                             </div>
@@ -542,11 +542,11 @@ window.onscroll = ()=>  {scrollFunction()};
                             <div className="col-md-3">
                                 <div className="btn-group btn-group-toggle space-radio" data-toggle="buttons">
                                     <label className="custom-choice btn btn-secondary ">
-                                    <input type="radio" name="option14" id="option14" value = 'yes' autoComplete="off"  /> Yes
+                                    <input type="radio" name="option14" id="option14" value = 'yes' autoComplete="off" required  /> Yes
                                     </label>
                                     
                                     <label className="custom-choice btn btn-secondary">
-                                    <input type="radio" name="option14" id="option14" value = 'no' autoComplete="off" /> No
+                                    <input type="radio" name="option14" id="option14" value = 'no' autoComplete="off" required /> No
                                     </label>
                                 </div>
                             </div>
@@ -563,11 +563,11 @@ window.onscroll = ()=>  {scrollFunction()};
                             <div className="col-md-3">
                                 <div className="btn-group btn-group-toggle space-radio" data-toggle="buttons">
                                     <label className="custom-choice btn btn-secondary ">
-                                    <input type="radio" name="option15" id="option15" value = 'yes' autoComplete="off"  /> Yes
+                                    <input type="radio" name="option15" id="option15" value = 'yes' autoComplete="off"  required /> Yes
                                     </label>
                                     
                                     <label className="custom-choice btn btn-secondary">
-                                    <input type="radio" name="option15" id="option15" value = 'no' autoComplete="off" /> No
+                                    <input type="radio" name="option15" id="option15" value = 'no' autoComplete="off" required  /> No
                                     </label>
                                 </div>
                             </div>
@@ -582,11 +582,11 @@ window.onscroll = ()=>  {scrollFunction()};
                             <div className="col-md-3">
                                 <div className="btn-group btn-group-toggle space-radio" data-toggle="buttons">
                                     <label className="custom-choice btn btn-secondary ">
-                                    <input type="radio" name="option16" id="option16" value = 'yes' autoComplete="off"  /> Yes
+                                    <input type="radio" name="option16" id="option16" value = 'yes' autoComplete="off"  required /> Yes
                                     </label>
                                     
                                     <label className="custom-choice btn btn-secondary">
-                                    <input type="radio" name="option16" id="option16" value = 'no' autoComplete="off" /> No
+                                    <input type="radio" name="option16" id="option16" value = 'no' autoComplete="off" required  /> No
                                     </label>
                                 </div>
                             </div>
@@ -600,11 +600,11 @@ window.onscroll = ()=>  {scrollFunction()};
                             <div className="col-md-3">
                                 <div className="btn-group btn-group-toggle space-radio" data-toggle="buttons">
                                     <label className="custom-choice btn btn-secondary ">
-                                    <input type="radio" name="option17" id="option17" value = 'yes' autoComplete="off"  /> Yes
+                                    <input type="radio" name="option17" id="option17" value = 'yes' autoComplete="off"  required /> Yes
                                     </label>
                                     
                                     <label className="custom-choice btn btn-secondary">
-                                    <input type="radio" name="option17" id="option17" value = 'no' autoComplete="off" /> No
+                                    <input type="radio" name="option17" id="option17" value = 'no' autoComplete="off" required /> No
                                     </label>
                                 </div>
                             </div>
@@ -625,11 +625,11 @@ window.onscroll = ()=>  {scrollFunction()};
                             <div className="col-md-3">
                                 <div className="btn-group btn-group-toggle space-radio" data-toggle="buttons">
                                     <label className="custom-choice btn btn-secondary ">
-                                    <input type="radio" name="option18" id="option18" value = 'yes' autoComplete="off"  /> Yes
+                                    <input type="radio" name="option18" id="option18" value = 'yes' autoComplete="off" required  /> Yes
                                     </label>
                                     
                                     <label className="custom-choice btn btn-secondary">
-                                    <input type="radio" name="option18" id="option18" value = 'no' autoComplete="off" /> No
+                                    <input type="radio" name="option18" id="option18" value = 'no' autoComplete="off" required /> No
                                     </label>
                                 </div>
                             </div>
@@ -644,11 +644,11 @@ window.onscroll = ()=>  {scrollFunction()};
                             <div className="col-md-3">
                                 <div className="btn-group btn-group-toggle space-radio" data-toggle="buttons">
                                     <label className="custom-choice btn btn-secondary ">
-                                    <input type="radio" name="option19" id="option19" value = 'yes' autoComplete="off"  /> Yes
+                                    <input type="radio" name="option19" id="option19" value = 'yes' autoComplete="off" required  /> Yes
                                     </label>
                                     
                                     <label className="custom-choice btn btn-secondary">
-                                    <input type="radio" name="option19" id="option19" value = 'no' autoComplete="off" /> No
+                                    <input type="radio" name="option19" id="option19" value = 'no' autoComplete="off" required  /> No
                                     </label>
                                 </div>
                             </div>
@@ -662,11 +662,11 @@ window.onscroll = ()=>  {scrollFunction()};
                             <div className="col-md-3">
                                 <div className="btn-group btn-group-toggle space-radio" data-toggle="buttons">
                                     <label className="custom-choice btn btn-secondary ">
-                                    <input type="radio" name="option20" id="option20" value = 'yes' autoComplete="off"  /> Yes
+                                    <input type="radio" name="option20" id="option20" value = 'yes' autoComplete="off"  required /> Yes
                                     </label>
                                     
                                     <label className="custom-choice btn btn-secondary">
-                                    <input type="radio" name="option20" id="option20" value = 'no' autoComplete="off" /> No
+                                    <input type="radio" name="option20" id="option20" value = 'no' autoComplete="off" required /> No
                                     </label>
                                 </div>
                             </div>

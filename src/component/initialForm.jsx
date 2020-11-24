@@ -35,10 +35,10 @@ export const InitialForm = (props) => {
     //         }
     //     }, 180);
     // },[]);
-    var errorMessage = null
+    // var errorMessage = null
     useEffect(() => {
 
-         if (error) { errorMessage = message.error("Incomplete response")};
+        //  if (error) { errorMessage = message.error("Incomplete response")};
         node.current.addEventListener('click', (e)=>  {
             for (const select of node.current.querySelectorAll('.custom-select')) {
                 if (!select.contains(e.target)) {
@@ -115,7 +115,7 @@ export const InitialForm = (props) => {
     
     // }
 
-    }, [error]);
+    }, []);
 
 
   
@@ -173,16 +173,17 @@ window.onscroll = ()=>  {scrollFunction()};
             initial["option6"] = e.target.option6.value
             
             for (const [key, value] of Object.entries(initial)) {
-                if( value == ""){
-                    message.error("Incomplete response");
-                    props.history.push('/initial/');
-                break;
+                // if( value === ""){
+                //     // setError(true)
+                //     message.error("Incomplete response");
+                //     props.history.push('/initial/');
+                // break;
                 
-                }
+                // }
                 
-                if(initial["option6"]=='no'){
+                if(initial["option6"]==='no'){
                     props.history.push('/q1/');
-                }else if(initial["option6"]=='yes'){
+                }else if(initial["option6"]==='yes'){
    
                  props.history.push('/age/');
               }
@@ -199,7 +200,7 @@ window.onscroll = ()=>  {scrollFunction()};
 
   return(
         <div ref={node}>
-      {errorMessage}
+      {/* {errorMessage} */}
        {/* <div ref={node2} className="se-pre-con"></div> */}
         <div className="jumbotron forum-header mini_header bgimg" style={{backgroundImage: {mini_header_2}}}>
             <MenuLayout/>
@@ -232,7 +233,7 @@ window.onscroll = ()=>  {scrollFunction()};
                                 <p className="question">Child's Name</p>
                             </div>
                             <div className="col-md-3">
-                            <input input className="question-input form-control" type="text" id = "option1"name = "option1" />
+                            <input input className="question-input form-control" type="text" id = "option1" name = "option1" required />
                             
                             </div>
                         </div>
@@ -242,7 +243,7 @@ window.onscroll = ()=>  {scrollFunction()};
                                 <p className="question">Parent or Guardian's Email</p>
                             </div>
                             <div className="col-md-3">
-                            <input input className="question-input form-control" type="email" id = "option2"name = "option2" />
+                            <input input className="question-input form-control" type="email" id = "option2"name = "option2" required />
                              </div>
                         </div>
 
@@ -251,7 +252,7 @@ window.onscroll = ()=>  {scrollFunction()};
                                 <p className="question">Parent or Guardian's Phone no.(WhatsApp)</p>
                             </div>
                             <div className="col-md-3">
-                            <input input className="question-input form-control" type="tel" id = "option3"name = "option3" />
+                            <input input className="question-input form-control" type="tel" id = "option3"name = "option3" required  />
                             </div>
                         </div>
 
@@ -260,7 +261,7 @@ window.onscroll = ()=>  {scrollFunction()};
                                 <p className="question">Child's Date of Birth</p>
                             </div>
                             <div className="col-md-3">
-                            <input input className="question-input form-control" type="date" id = "option4"name = "option4" />
+                            <input input className="question-input form-control" type="date" id = "option4"name = "option4" required  />
                             </div>
                         </div>
 
@@ -306,11 +307,11 @@ window.onscroll = ()=>  {scrollFunction()};
                             <div className="col-md-3">
                                 <div className="btn-group btn-group-toggle space-radio" data-toggle="buttons">
                                     <label className="custom-choice btn btn-secondary ">
-                                    <input type="radio" name="option6" id="option6" value = 'yes' autoComplete="off"  /> Yes
+                                    <input type="radio" name="option6" id="option6" value = 'yes' autoComplete="off" required /> Yes
                                     </label>
                                     
                                     <label className="custom-choice btn btn-secondary">
-                                    <input type="radio" name="option6" id="option6" value = 'no' autoComplete="off" /> No
+                                    <input type="radio" name="option6" id="option6" value = 'no' autoComplete="off" required /> No
                                     </label>
                                 </div>
                             </div>
