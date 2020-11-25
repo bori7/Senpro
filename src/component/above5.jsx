@@ -182,6 +182,12 @@ window.onscroll = ()=>  {scrollFunction()};
        {/* <div ref={node2} className="se-pre-con"></div> */}
         <div className="jumbotron forum-header mini_header bgimg" style={{backgroundImage: {mini_header_2}}}>
             <MenuLayout/>
+            <br/>
+            <br/>
+            <br/><br/>
+            <br/>
+            <br/>
+            <br/><br/>
         <div className="container-fluid">
             <div className="row">
                 <div className="col-md-12">
