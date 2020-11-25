@@ -4,8 +4,9 @@ import mini_header_2 from '../static/assets/mini_header_2.png';
 import {Link } from "react-router-dom";
 import { getGradedASNTS } from "../store/actions/results";
 import {MyContext} from '../store/context/myContext';
-// import main_logo from '../static/assets/main-logo.png';
-import banner_logo from "../static/assets/banner_logo.png";
+import main_logo from '../static/assets/main-logo.png';
+import { Divider } from '@material-ui/core'; 
+// import banner_logo from "../static/assets/banner_logo.png";
 // import  '../static/style.css';
 // import {q1script} from './q1j.js';
 
@@ -77,14 +78,7 @@ export const Personal = (props) => {
                 })
             }
     
-
-   
     }, []);
-
-
-  
-
-
 
 const scrollFunction = ()=> {
     if (document.body.scrollTop > 70 || document.documentElement.scrollTop > 70) {
@@ -113,8 +107,9 @@ window.onscroll = ()=>  {scrollFunction()};
   return(
         <div ref={node}>
        {/* <div ref={node2} className="se-pre-con"></div> */}
+ 
       
-        <div className="jumbotron result-header mini_header bgimg" style={{backgroundImage: {mini_header_2}}}>
+        <div className="jumbotron forum-header mini_header bgimg" style={{backgroundImage: {mini_header_2}}}>
             <MenuLayout/>
             <br/>
             <br/>
@@ -142,6 +137,37 @@ window.onscroll = ()=>  {scrollFunction()};
         </div>
         </div>
 
+	
+        <div class="jumbotron bg-white">
+			<div class="container-fluid">
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <img src={main_logo} alt = {"main_logo"} style={{width: '200px'}}/>
+
+                        <br/><br/><br/>
+                        <Divider/>
+                        {title.map(x=> 
+                    
+                        <div>
+                                <br/><br/><br/>
+                                <h4 class="form-title">{x}</h4>
+                                <hr style={{borderTop: '2px', solid: '#24a9b3', marginTop: '30px'}}/>
+                                <p>{explain[title.indexOf(x)]}</p>
+                                <Link to={`/gendev3/`}>
+                                <a  class="btn btn-primary btn-lg deepblue curvebtn  my-2 my-sm-0 colorf" >Book An Appointment</a>
+                                </Link>
+                                <h4 class="form-title" style={{marginTop: '60px'}}>Tips</h4>
+                                <p>{tips[title.indexOf(x)]}</p>
+                                <br/>
+                                <Divider/>
+                        </div>
+
+                        ) }
+                    </div>
+                </div>
+            </div>
+		</div>
+
         <div className="jumbotron bg-white">
         <div className="container-fluid">
             <div className="row">
@@ -150,58 +176,11 @@ window.onscroll = ()=>  {scrollFunction()};
                 </div>
                 
                     <div className="col-md-10" style={{marginTop: '30px'}}>
-                    {title.map(x=> 
-                    
-                        <div>
-                
-                <div className="row questions">
-                   
-                    <div className="col-md-3">
-                    
-                        <p className="primary-header header">{x}</p> 
-                 
-                    </div>
-                </div>
-
-                <div className="row questions">
-                   
-                    <div className="col-md-3">
-                    
-                        <span className=" question  ">{explain[title.indexOf(x)]}</span> 
-                 
-                    </div>
-                </div>
-                    
-                <div className="row questions">
-                   
-                   <div className="col-md-3">
-                   <Link to={`/gendev3/`}>
-                       <button className="btn btn-primary deepblue curvebtn my-2 my-sm-0 colorf">Book an appointment</button> 
-                       </Link>
-                   </div>
-               </div>
-
-                <div className="row questions">
-                   
-                   <div className="col-md-3">
-                   
-                       <p className="question ">{tips[title.indexOf(x)]}</p> 
-                
-                   </div>
-               </div>
-               <br/>
-            <br/>
-            <br/>
-
-            <br/>
-            </div>
-            
-                    
-                    ) }
+                  
                
+                    <Divider/>
                         <br/>
-                            <br/>
-                            <br/>
+                        <br/>
                         <div className="col-12 step-control">
                                 <button onClick = { handleReturn}className="btn btn-primary deepblue curvebtn my-2 my-sm-0 colorf">Back to Home
                                 </button>
