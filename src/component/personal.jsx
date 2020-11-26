@@ -117,9 +117,7 @@ window.onscroll = ()=>  {scrollFunction()};
             <br/>
             <br/>
             <br/><br/>
-            <br/>
-            <br/>
-            <br/><br/>
+            
             {/* <a className="navbar-brand animate__animated animate__fadeInLeft" href="/"><img className="banner_logo" src={banner_logo} alt = {"banner_logo_1"}/></a>
        */}
         <div className="container-fluid">
