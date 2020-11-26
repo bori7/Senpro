@@ -13,6 +13,7 @@ const initialState = {
   error: null,
   loading: false,
   message: null,
+  cartItems:[],
 };
 
 const getGradedASNTListStart = (state, action) => {
@@ -73,7 +74,7 @@ const getASNTListStart = (state, action) => {
 
 const getASNTListSuccess = (state, action) => {
   return updateObject(state, {
-    assignments: action.assignments,
+    cartItems: action.cartItem,
     error: null,
     loading: false,
     message:null,

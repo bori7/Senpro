@@ -3,3 +3,7 @@ export const res = {
     title: [],
     tips: [],
 } 
+
+export const cart_item = {
+    cartitem :[],
+}

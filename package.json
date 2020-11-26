@@ -19,11 +19,11 @@
     "web-vitals": "^0.2.4"
   },
   "scripts": {
-    "start": "npm start",
-    "build": "npm run build",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "heroku-postbuild": "node --max-old-space-size=6144 && npm install && npm run build"
+    "heroku-postbuild": "node --max-old-space-size=6144"
   },
   "eslintConfig": {
     "extends": [

@@ -1,8 +1,9 @@
-import React ,{useEffect, useState, useCallback, useRef}from "react";
+import React ,{useEffect, useState, useContext, useCallback, useRef}from "react";
 import {MenuLayout} from './menu';
 import mini_header_2 from '../static/assets/mini_header_2.png';
 import {Link } from "react-router-dom";
-
+import { getASNTS } from "../store/actions/assignments";
+import {MyContext} from '../store/context/myContext';
 import CheckoutItem from './checkout-item/checkout-item.component';
 import StripeCheckoutButton from './stripe-button/stripe-button.component';
 
@@ -15,7 +16,9 @@ export const CheckOut = (props) => {
     // const node2 = useRef(0);
     // const node3 = useRef();
 
-    const [initia, setInitia] = useState({});
+    // const [initia, setInitia] = useState({});
+    const {state, dispatch} = useContext(MyContext);
+    const {cartItems} = state;
     // const [alert, setAlert] = useState(false);
 
     // const fadeOutEffect= useCallback(( )=> {
@@ -36,6 +39,8 @@ export const CheckOut = (props) => {
     // },[]);
   
     useEffect(() => {
+
+        getASNTS(dispatch)
         node.current.addEventListener('click', (e)=>  {
             for (const select of node.current.querySelectorAll('.custom-select')) {
                 if (!select.contains(e.target)) {
@@ -114,7 +119,7 @@ export const CheckOut = (props) => {
 
     }, []);
 
-const cartItems = {}
+// const cartItems = {}
 var total = 0
   
 
@@ -218,15 +223,15 @@ window.onscroll = ()=>  {scrollFunction()};
 
                     <div className='checkout-page'>
     <div className='checkout-header'>
-      <div className='header-block'>
+      {/* <div className='header-block'>
         <span>Product</span>
-      </div>
+      </div> */}
       <div className='header-block'>
         <span>Description</span>
       </div>
-      <div className='header-block'>
+      {/* <div className='header-block'>
         <span>Quantity</span>
-      </div>
+      </div> */}
       <div className='header-block'>
         <span>Price</span>
       </div>
@@ -234,9 +239,9 @@ window.onscroll = ()=>  {scrollFunction()};
         <span>Remove</span>
       </div>
     </div>
-    {/* {cartItems.map(cartItem => (
-      <CheckoutItem key={cartItem.id} cartItem={cartItem} />
-    ))} */}
+    {cartItems.map(cartItem => (
+      <CheckoutItem key={cartItems.indexOf(cartItem)} cartItem={cartItem} />
+    ))}
     <div className='total'>TOTAL: ${total}</div>
     <div className='test-warning'>
       *Please use the following test credit card for payments*
