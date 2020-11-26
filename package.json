@@ -10,17 +10,20 @@
     "@testing-library/user-event": "^12.2.2",
     "antd": "^4.8.4",
     "material-ui": "^0.20.2",
+    "node-sass": "^4.14.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.0",
+    "react-stripe-checkout": "^2.6.3",
     "web-vitals": "^0.2.4"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "heroku-postbuild": "node --max-old-space-size=4096 index.js && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
   },
   "eslintConfig": {
     "extends": [

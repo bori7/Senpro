@@ -37,11 +37,11 @@ import {Link } from "react-router-dom";
           
           
         </ul>
-        <form className="form-inline my-2 my-lg-0 navright " style={{marginRight: "20px"}}>
+        {/* <form className="form-inline my-2 my-lg-0 navright " style={{marginRight: "20px"}}>
         <Link to={`/initial/`}>
               <a className="btn btn-primary deepblue curvebtn my-2 my-sm-0 colorf" >Let us help</a>
         </Link>
-        </form>
+        </form> */}
         
       </div>
     </nav>
@@ -73,11 +73,11 @@ import {Link } from "react-router-dom";
           
           
         </ul>
-        <form className="form-inline my-2 my-lg-0 navright animate__animated animate__fadeInLeft">
+        {/* <form className="form-inline my-2 my-lg-0 navright animate__animated animate__fadeInLeft">
         <Link to={`/initial/`}>
               <a className="btn btn-primary deepblue curvebtn my-2 my-sm-0 colorf" >Let us help</a>
               </Link>
-        </form>
+        </form> */}
         
       </div>
     </nav>

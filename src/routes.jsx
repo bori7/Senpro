@@ -16,6 +16,9 @@ import {Mental} from './component/mental';
 import {Above5} from './component/above5';
 import {Age} from './component/age';
 import {Personal} from './component/personal';
+import {Login} from './component/login';
+import {SignUp} from './component/signup';
+import {CheckOut} from './component/checkout';
 
 const BaseRouter = () => (
   <div>
@@ -35,6 +38,10 @@ const BaseRouter = () => (
     <Route exact path="/above5/" component={Above5} />
     <Route exact path="/age/" component={Age} />
     <Route exact path="/result/" component={Personal} />
+    <Route exact path="/login/" component={Login} />
+    <Route exact path="/signup/" component={SignUp} />
+    <Route exact path="/checkout/" component={CheckOut} />
+
 
     {/* <Route exact path="/signup/" component={Signup} />
     <Route exact path="/assignments/:id" component={AssignmentDetail} />
