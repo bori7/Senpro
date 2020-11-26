@@ -7,6 +7,7 @@ import {MyContext} from '../store/context/myContext';
 import CheckoutItem from './checkout-item/checkout-item.component';
 import StripeCheckoutButton from './stripe-button/stripe-button.component';
 
+
 import './checkout.styles.scss';
 
 
@@ -232,11 +233,11 @@ window.onscroll = ()=>  {scrollFunction()};
       {/* <div className='header-block'>
         <span>Quantity</span>
       </div> */}
-      <div className='header-block'>
-        <span>Price</span>
+      <div className='header-block '>
+        <span className ='remove-button'></span>
       </div>
-      <div className='header-block'>
-        <span>Remove</span>
+      <div >
+        <span></span>
       </div>
     </div>
     {cartItems.map(cartItem => (

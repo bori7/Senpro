@@ -1,4 +1,5 @@
 import React from 'react';
+import { Card } from '@material-ui/core'; 
 
 
 import './checkout-item.styles.scss';
@@ -15,7 +16,9 @@ const CheckoutItem = ({ cartItem}) => {
       {/* <div className='image-container'>
         <img src={imageUrl} alt='item' />
       </div> */}
+      <Card>
       <span className='name'>{cartItem}</span>
+      </Card>
       <span className='quantity'>
         {/* <div className='arrow' onClick={() => removeItem(cartItem)}>
           &#10094;
@@ -25,7 +28,7 @@ const CheckoutItem = ({ cartItem}) => {
           &#10095;
         </div> */}
       </span>
-      <div className='price'>{'0'}</div>
+      <div className='remove-button'>{'0'}</div>
       <span className='quantity'>
         {/* <div className='arrow' onClick={() => removeItem(cartItem)}>
           &#10094;
@@ -36,7 +39,9 @@ const CheckoutItem = ({ cartItem}) => {
         </div> */}
       </span>
       <div className='remove-button' onClick={() => clearItem(cartItem)}>
+      <Card>
         &#10005;
+        </Card>
       </div>
     </div>
   );
