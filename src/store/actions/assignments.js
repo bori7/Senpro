@@ -175,7 +175,7 @@ export const createChild = (token, child, dispatch) => {
       Authorization: `Token ${token}`
     };
   axios
-      .post(`/clients/childs/`, child)
+      .post(`http://127.0.0.1:8000/clients/childs/`, child)
       .then(res => {
         console.log(res)
         dispatch(createChildSuccess());
@@ -198,7 +198,7 @@ export const createResult = (token, result, dispatch) => {
       Authorization: `Token ${token}`
     };
   axios
-      .post(`/clients/results/`, result)
+      .post(`http://127.0.0.1:8000/clients/results/`, result)
       .then(res => {
         console.log(res)
         dispatch(createResultSuccess());

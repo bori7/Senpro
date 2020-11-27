@@ -31,11 +31,6 @@
       "react-app/jest"
     ]
   },
-  "engines": {
-    "node": "9.5.0",
-    "npm": "6.4.1"
-  },
-  "proxy": "http://localhost:8000",
   "browserslist": {
     "production": [
       ">0.2%",

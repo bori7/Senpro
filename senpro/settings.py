@@ -16,6 +16,7 @@ import dj_database_url
 import django_heroku
 
 
+
 # Configure app for Heroku deployment
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -32,7 +33,7 @@ SECRET_KEY = 'lu)5xf0b5ih3fb%u_jwrhmvll1+d5q=&ui8h7(efr#-h8_2kb-'
 DEBUG = True
 
 ALLOWED_HOSTS = ['toludev.pythonanywhere.com', '127.0.0.1', 'localhost']
-ALLOWED_HOSTS += ['senpro2020.herokuapp.com'] 
+ALLOWED_HOSTS += ['senpro2020.herokuapp.com','http://127.0.0.1:8000'] 
 
 
 # Application definition
@@ -161,16 +162,17 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'build/static')]
 
 STATIC_ROOT = os.path.join(BASE_DIR,'build', "static")
 
+django_heroku.settings(locals())
 
 CORS_ALLOW_CREDENTIALS = True
 
 
 CORS_ORIGIN_ALLOW_ALL = True
-CORS_ORIGIN_WHITELIST = (
-    'https://localhost:3000',
-    'http://127.0.0.1:8000',
-    'http://localhost:8000',
-)
+# CORS_ORIGIN_WHITELIST = (
+#     'https://localhost:3000',
+#     'http://127.0.0.1:8000',
+#     'http://localhost:8000',
+# )
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
@@ -197,4 +199,4 @@ db_from_env = dj_database_url.config(conn_max_age=600)
 
 DATABASES['default'].update(db_from_env)
 
-django_heroku.settings(locals())
+
