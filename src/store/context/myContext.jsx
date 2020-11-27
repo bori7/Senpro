@@ -8,6 +8,11 @@ export const MyContext = createContext();
 
 const initialState = {
   explain: [],
+  assignments: [],
+  currentAssignment: {},
+  token: null,
+  username: null,
+  userId: null,
   title: [],
   tips: [],
   error: null,
@@ -51,7 +56,10 @@ const createGradedASNTListStart = (state, action) => {
 const createGradedASNTListSuccess = (state, action) => {
   return updateObject(state, {
     message: action.message,
-    loading: false
+    loading: false,
+    explain: action.explain,
+    title: action.title,
+    tips: action.tips,
   });
 };
 
@@ -120,7 +128,8 @@ const createASNTStart = (state, action) => {
 const createASNTSuccess = (state, action) => {
   return updateObject(state, {
     error: null,
-    loading: false
+    loading: false,
+    cartItems: action.cartItems
   });
 };
 
@@ -131,6 +140,47 @@ const createASNTFail = (state, action) => {
   });
 };
 
+const createChildStart = (state, action) => {
+  return updateObject(state, {
+    error: null,
+    loading: true
+  });
+};
+
+const createChildSuccess = (state, action) => {
+  return updateObject(state, {
+    error: null,
+    loading: false
+  });
+};
+
+const createChildFail = (state, action) => {
+  return updateObject(state, {
+    error: action.error,
+    loading: false
+  });
+};
+
+const createResultStart = (state, action) => {
+  return updateObject(state, {
+    error: null,
+    loading: true
+  });
+};
+
+const createResultSuccess = (state, action) => {
+  return updateObject(state, {
+    error: null,
+    loading: false
+  });
+};
+
+const createResultFail = (state, action) => {
+  return updateObject(state, {
+    error: action.error,
+    loading: false
+  });
+};
 
 
 
@@ -146,8 +196,6 @@ const authSuccess = (state, action) => {
   return updateObject(state, {
     token: action.user.token,
     username: action.user.username,
-    is_student: action.user.is_student,
-    is_teacher: action.user.is_teacher,
     userId: action.user.userId,
     error: null,
     loading: false
@@ -196,6 +244,19 @@ const reducer = (state, action) => {
       return createASNTSuccess(state, action);
     case actionTypes.CREATE_ASSIGNMENT_FAIL:
       return createASNTFail(state, action);
+      case actionTypes.CREATE_CHILD_START:
+        return createChildStart(state, action);
+      case actionTypes.CREATE_CHILD_SUCCESS:
+        return createChildSuccess(state, action);
+      case actionTypes.CREATE_CHILD_FAIL:
+        return createChildFail(state, action); 
+        case actionTypes.CREATE_RESULT_START:
+      return createResultStart(state, action);
+    case actionTypes.CREATE_RESULT_SUCCESS:
+      return createResultSuccess(state, action);
+    case actionTypes.CREATE_RESULT_FAIL:
+      return createResultFail(state, action);
+
     case actionTypes.GET_GRADED_ASSIGNMENT_LIST_START:
       return getGradedASNTListStart(state, action);
     case actionTypes.GET_GRADED_ASSIGNMENTS_LIST_SUCCESS:

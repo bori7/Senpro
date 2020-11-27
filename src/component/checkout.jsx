@@ -38,10 +38,10 @@ export const CheckOut = (props) => {
     //         }
     //     }, 180);
     // },[]);
-  
     useEffect(() => {
-
-        getASNTS(dispatch)
+        if (state.token === undefined || state.token === null) {
+            props.history.push('/login/');
+         }
         node.current.addEventListener('click', (e)=>  {
             for (const select of node.current.querySelectorAll('.custom-select')) {
                 if (!select.contains(e.target)) {
@@ -118,7 +118,8 @@ export const CheckOut = (props) => {
     
     // }
 
-    }, []);
+    }, [state.token]);
+
 
 // const cartItems = {}
 var total = 0

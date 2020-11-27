@@ -1,4 +1,4 @@
-// import axios from "axios";
+import axios from "axios";
 import * as actionTypes from "./actionTypes";
 import  {cart_item} from '../clientResult';
 
@@ -98,9 +98,37 @@ const createASNTStart = () => {
   };
 };
 
-const createASNTSuccess=() => {
+const createChildStart = () => {
+  return {
+    type: actionTypes.CREATE_CHILD_START
+  };
+};
+
+const createResultStart = () => {
+  return {
+    type: actionTypes.CREATE_RESULT_START
+  };
+};
+
+
+const createASNTSuccess=(message, cart) => {
   return {
     type: actionTypes.CREATE_ASSIGNMENT_SUCCESS,
+    message:message,
+    cartItems: cart
+  };
+};
+
+const createChildSuccess=() => {
+  return {
+    type: actionTypes.CREATE_CHILD_SUCCESS,
+    
+  };
+};
+
+const createResultSuccess=() => {
+  return {
+    type: actionTypes.CREATE_RESULT_SUCCESS,
     
   };
 };
@@ -112,34 +140,75 @@ const createASNTFail = error => {
   };
 };
 
+const createResultFail = error => {
+  return {
+    type: actionTypes.CREATE_RESULT_FAIL,
+    error: error
+  };
+};
+
+const createChildFail = error => {
+  return {
+    type: actionTypes.CREATE_CHILD_FAIL,
+    error: error
+  };
+};
+
 
 export const createASNT = (cart,dispatch) => {
  
  
   dispatch(createASNTStart());
-  cart_item['cartitem'] = cart
-      dispatch(createASNTSuccess('Submitted'));
+  // cart_item['cartitem'] = cart
+      dispatch(createASNTSuccess('Submitted', cart));
     console.log(cart_item['cartitem'])
 
 };
 
-// export const createASNT = (token, asnt,dispatch) => {
- 
-//     dispatch(createASNTStart());
-//     console.log(token,asnt)
-//     axios.defaults.headers = {
-//       "Content-Type": "application/json",
-//       Authorization: `Token ${token}`
-//     };
-//   axios
-//       .post(`/assignments/`, asnt)
-//       .then(res => {
-//         dispatch(createASNTSuccess());
-//         ;
 
-//       })
-//       .catch(err => {
-//         dispatch(createASNTFail(err.response.data.message));
-//       });
+export const createChild = (token, child, dispatch) => {
+ 
+    dispatch(createChildStart());
+    console.log(token,child)
+    axios.defaults.headers = {
+      "Content-Type": "application/json",
+      Authorization: `Token ${token}`
+    };
+  axios
+      .post(`/clients/childs/`, child)
+      .then(res => {
+        console.log(res)
+        dispatch(createChildSuccess());
+        ;
+
+      })
+      .catch(err => {
+        console.log(err.response.request.responseText)
+        dispatch(createChildFail(err.response.request.responseText));
+      });
   
-// };
+};
+
+export const createResult = (token, result, dispatch) => {
+ 
+    dispatch(createResultStart());
+    console.log(token,result)
+    axios.defaults.headers = {
+      "Content-Type": "application/json",
+      Authorization: `Token ${token}`
+    };
+  axios
+      .post(`/clients/results/`, result)
+      .then(res => {
+        console.log(res)
+        dispatch(createResultSuccess());
+        ;
+
+      })
+      .catch(err => {
+        console.log(err.response.request.responseText)
+        dispatch(createResultFail(err.response.request.responseText));
+      });
+  
+};
+

@@ -1,13 +1,42 @@
-import React from "react";	
+import React, { useContext,useEffect } from "react";	
+import {MyContext} from '../store/context/myContext';
 import main_logo from '../static/assets/main-logo.png';
 import banner_logo from "../static/assets/banner_logo.png";
+// import {message } from "antd";
+import * as actions from "../store/actions/auth";
 // import  '../../src/static/style.css';
 import {Link } from "react-router-dom";
+import { Alert } from '@material-ui/lab';
 
-  export const MenuLayout = () => (
+  export const MenuLayout = (props) => {
 
+    
+    const {state, dispatch} = useContext(MyContext)
+    const {token, loading} = state
+
+    
+    // var errorMessage = null;/
+
+    // useEffect(() => {
+    //   // if (token !== undefined && token !== null) {
+    //   //    // props.history.push('/login/');
+    //   // }
+    //   if (state.error) { errorMessage = <Alert severity="error">{state.error}</Alert>};
+    
+    //   if (state.message) { errorMessage = <Alert severity="info">{state.message}</Alert>};
+  
+    //   }, [state.token, state.error, state.message]) 
+
+      const handleSignout= e => {
+        e.preventDefault();
+        actions.logout(dispatch)
+        // props.history.push('/login/');
+      }
+    
+
+return (
     <div className="container-fluid">
-
+  
     <div className="row">
         <div className="col-12">
 
@@ -37,11 +66,17 @@ import {Link } from "react-router-dom";
           
           
         </ul>
-        {/* <form className="form-inline my-2 my-lg-0 navright " style={{marginRight: "20px"}}>
-        <Link to={`/initial/`}>
-              <a className="btn btn-primary deepblue curvebtn my-2 my-sm-0 colorf" >Let us help</a>
-        </Link>
-        </form> */}
+        {state.token?
+        (<form className="form-inline my-2 my-lg-0 navright animate__animated animate__fadeInLeft">
+        <Link to={`/logout/`}>
+              <button onClick = {handleSignout} className="btn btn-primary deepblue curvebtn my-2 my-sm-0 colorf" >SignOut</button>
+              </Link> 
+        </form>) :  (<form className="form-inline my-2 my-lg-0 navright animate__animated animate__fadeInLeft">
+        <Link to={`/login/`}>
+              <button className="btn btn-primary deepblue curvebtn my-2 my-sm-0 colorf" >Login</button>
+              </Link>
+        </form>)
+        }
         
       </div>
     </nav>
@@ -73,20 +108,31 @@ import {Link } from "react-router-dom";
           
           
         </ul>
-        {/* <form className="form-inline my-2 my-lg-0 navright animate__animated animate__fadeInLeft">
-        <Link to={`/initial/`}>
-              <a className="btn btn-primary deepblue curvebtn my-2 my-sm-0 colorf" >Let us help</a>
+        {token ?
+        (<form className="form-inline my-2 my-lg-0 navright animate__animated animate__fadeInLeft">
+        <Link to={`/logout/`}>
+              <button onClick = {handleSignout}  className="btn btn-primary deepblue curvebtn my-2 my-sm-0 colorf" >SignOut</button>
               </Link>
-        </form> */}
+        </form>) :  (<form className="form-inline my-2 my-lg-0 navright animate__animated animate__fadeInLeft">
+        <Link to={`/login/`}>
+              <button className="btn btn-primary deepblue curvebtn my-2 my-sm-0 colorf" >Login</button>
+              </Link>
+        </form>)
+        }
         
       </div>
     </nav>
+<div>
+
+</div>
+   
+    
         </div>
     </div>
 
 
 </div>
 
-  )
+ ) }
     
    

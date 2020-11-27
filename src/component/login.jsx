@@ -1,8 +1,11 @@
-import React ,{useEffect, useState, useCallback, useRef}from "react";
+import React ,{useEffect, useState,useContext, useRef}from "react";
 import {MenuLayout} from './menu';
 import mini_header_2 from '../static/assets/mini_header_2.png';
-// import {Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
+import {MyContext} from '../store/context/myContext';
+
 import { message } from "antd";
+import * as actions from "../store/actions/auth";
 
 // import  '../static/style.css';
 // import {q1script} from './q1j.js';
@@ -17,6 +20,7 @@ export const Login = (props) => {
 
     const [initia, setInitia] = useState({});
     const [error, setError] = useState(false);
+    const {state, dispatch } = useContext(MyContext)
     // const [alert, setAlert] = useState(false);
 
     // const fadeOutEffect= useCallback(( )=> {
@@ -35,9 +39,10 @@ export const Login = (props) => {
     //         }
     //     }, 180);
     // },[]);
-    // var errorMessage = null
+    var errorMessage = null
     useEffect(() => {
-
+        if (state.error) { errorMessage = message.error(state.error)}
+    
         //  if (error) { errorMessage = message.error("Incomplete response")};
         node.current.addEventListener('click', (e)=>  {
             for (const select of node.current.querySelectorAll('.custom-select')) {
@@ -115,7 +120,7 @@ export const Login = (props) => {
     
     // }
 
-    }, []);
+    }, [state.error]);
 
 
   
@@ -162,35 +167,45 @@ window.onscroll = ()=>  {scrollFunction()};
 
     
     const initial=  {}
-    const handleSubmit = e => {
+
+const handleSubmit = e => {
     e.preventDefault();
  
             initial["option1"] = e.target.option1.value
             initial["option2"] = e.target.option2.value
-     
-            for (const [key, value] of Object.entries(initial)) {
-                // if( value === ""){
-                //     // setError(true)
-                //     message.error("Incomplete response");
-                //     props.history.push('/initial/');
-                // break;
-                
-                // }
-                
-                if(initial["option6"]==='no'){
-                    props.history.push('/q1/');
-                }else if(initial["option6"]==='yes'){
-   
-                 props.history.push('/age/');
+
+            actions.authLogin(initial["option1"].toLowerCase(), initial["option2"],dispatch)
+            if (!state.error || state.token){
+        
+                props.history.push("/");
               }
-            // console.log(initial)
-            setInitia(initial)
-  }}
+     
+//             for (const [key, value] of Object.entries(initial)) {
+//                 // if( value === ""){
+//                 //     // setError(true)
+//                 //     message.error("Incomplete response");
+//                 //     props.history.push('/initial/');
+//                 // break;
+                
+//                 // }
+                
+//                 if(initial["option6"]==='no'){
+//                     props.history.push('/q1/');
+//                 }else if(initial["option6"]==='yes'){
+   
+//                  props.history.push('/age/');
+//               }
+//             // console.log(initial)
+//             setInitia(initial)
+//   }
+
+
+}
 
   const handleReturn = e => {
     e.preventDefault();
  
-    props.history.goBack();
+    props.history.push('/signup/');
   }
 
 
@@ -220,9 +235,9 @@ window.onscroll = ()=>  {scrollFunction()};
         </div>
         </div>
         
-        <div className="jumbotron bg-white">
+        <div className="jumbotron bg-white col-12 text-center">
         <div className="container-fluid">
-            <div className="row">
+            <div className="row ">
                 
                     <div className="col-md-10" style={{marginTop: '30px'}}>
                     <form onSubmit={handleSubmit}>
@@ -252,14 +267,23 @@ window.onscroll = ()=>  {scrollFunction()};
                             <br/>
                             <br/>
                         <div className="col-12 step-control">
-                                <button onClick={handleReturn} className="btn btn-primary deepblue curvebtn my-2 my-sm-0 colorf">Previous
-                                </button>
-                                <button type="submit" value="Submit" className="btn btn-primary deepblue curvebtn my-2 my-sm-0 colorf">Next
-                                </button>
-                                
-                               
+                        <div></div>
+                            <button type="submit" value="Submit" className="btn btn-primary deepblue curvebtn my-2 my-sm-0 colorf">Login
+                            </button> 
+                           
+                            {/* <button onClick = {handleReturn} className="btn btn-primary deepblue curvebtn my-2 my-sm-0 colorf">SignUp
+                            </button> */}
+                        </div>
+                        <br/>
+                        <div className="col-12 step-control">
+                        <div></div>
+                            {/* <button type="submit" value="Submit" className="btn btn-primary deepblue curvebtn my-2 my-sm-0 colorf">Login
+                            </button>  */}
+                            <button onClick = {handleReturn} className="btn btn-secondary deepblue curvebtn my-2 my-sm-0 colorf">SignUp
+                            </button>
                         </div>
                     </form>
+                  
                     </div>
             
                 

@@ -1,6 +1,8 @@
-import React ,{useEffect, useState, useCallback, useRef}from "react";
+import React ,{useEffect, useState, useContext, useRef}from "react";
 import {MenuLayout} from './menu';
+import {MyContext} from '../store/context/myContext';
 import mini_header_2 from '../static/assets/mini_header_2.png';
+import * as actions from "../store/actions/auth";
 // import {Redirect } from "react-router-dom";
 import { message } from "antd";
 
@@ -14,6 +16,7 @@ export const SignUp = (props) => {
     const node = useRef();
     // const node2 = useRef(0);
     // const node3 = useRef();
+    const {state,dispatch} = useContext(MyContext)
 
     const [initia, setInitia] = useState({});
     const [error, setError] = useState(false);
@@ -121,7 +124,6 @@ export const SignUp = (props) => {
   
 
 
-
 const scrollFunction = ()=> {
     if (document.body.scrollTop > 70 || document.documentElement.scrollTop > 70) {
     document.getElementById("scrollnav").style.top = "0";
@@ -159,6 +161,16 @@ window.onscroll = ()=>  {scrollFunction()};
 //     }
 // });
     
+// const check = () => {
+//     if (document.getElementById('option3').value ==
+//     document.getElementById('option4').value) {
+//         document.getElementById('message').style.color = 'green';
+//         node.current.getElementById('message').innerHTML = 'matching';
+//     } else {
+//         node.current.getElementById('message').style.color = 'red';
+//         node.current.getElementById('message').innerHTML = 'not matching';
+//     }
+//   }
 
     
     const initial=  {}
@@ -169,31 +181,42 @@ window.onscroll = ()=>  {scrollFunction()};
             initial["option2"] = e.target.option2.value
             initial["option3"] = e.target.option3.value
             initial["option4"] = e.target.option4.value
-     
-            for (const [key, value] of Object.entries(initial)) {
-                // if( value === ""){
-                //     // setError(true)
-                //     message.error("Incomplete response");
-                //     props.history.push('/initial/');
-                // break;
-                
-                // }
-                
-                if(initial["option6"]==='no'){
-                    props.history.push('/q1/');
-                }else if(initial["option6"]==='yes'){
-   
-                 props.history.push('/age/');
-              }
-            // console.log(initial)
-            setInitia(initial)
-  }}
 
-  const handleReturn = e => {
-    e.preventDefault();
+    actions.authSignup( initial["option1"].toLowerCase(), initial["option2"],
+    initial["option3"],initial["option4"],dispatch)
+    if(state.token){
+        props.history.push('/login/');
+    }else{
+        props.history.push('/signup/');
+    }
+   
+     
+//             for (const [key, value] of Object.entries(initial)) {
+//                 // if( value === ""){
+//                 //     // setError(true)
+//                 //     message.error("Incomplete response");
+//                 //     props.history.push('/initial/');
+//                 // break;
+                
+//                 // }
+                
+//                 if(initial["option6"]==='no'){
+//                     props.history.push('/q1/');
+//                 }else if(initial["option6"]==='yes'){
+   
+//                  props.history.push('/age/');
+//               }
+//             // console.log(initial)
+//             setInitia(initial)
+//   }
+
+}
+
+//   const handleReturn = e => {
+//     e.preventDefault();
  
-    props.history.goBack();
-  }
+//     props.history.push('/login/');
+//   }
 
 
   return(
@@ -253,7 +276,8 @@ window.onscroll = ()=>  {scrollFunction()};
                                 <p className="question">Password</p>
                             </div>
                             <div className="col-md-3">
-                            <input input className="question-input form-control" placeholder="Password" type="password" id = "option3"name = "option3" required />
+                            <input input className="question-input form-control" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+                              placeholder="Password" type="password" id = "option3"name = "option3"  required />
                              </div>
                         </div>
 
@@ -262,7 +286,9 @@ window.onscroll = ()=>  {scrollFunction()};
                                 <p className="question">Confirm Password</p>
                             </div>
                             <div className="col-md-3">
-                            <input input className="question-input form-control" placeholder="Confirm Password" type="password" id = "option4"name = "option4" required />
+                            <input input className="question-input form-control" placeholder="Confirm Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"  title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+                             type="password" id = "option4" name = "option4"  required />
+                             <span id='message'></span>
                              </div>
                         </div>
 
@@ -273,9 +299,10 @@ window.onscroll = ()=>  {scrollFunction()};
                             <br/>
                             <br/>
                         <div className="col-12 step-control">
-                                <button onClick={handleReturn} className="btn btn-primary deepblue curvebtn my-2 my-sm-0 colorf">Previous
-                                </button>
-                                <button type="submit" value="Submit" className="btn btn-primary deepblue curvebtn my-2 my-sm-0 colorf">Next
+                                {/* <button onClick={handleReturn} className="btn btn-primary deepblue curvebtn my-2 my-sm-0 colorf">Home
+                                </button> */}
+                                <div></div>
+                                <button type="submit" value="Submit" className="btn btn-primary deepblue curvebtn my-2 my-sm-0 colorf">SignUp
                                 </button>
                                 
                                

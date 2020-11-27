@@ -1,7 +1,29 @@
 
-import React from 'react';
- 
- export const Header =()=>(
+
+import { Alert } from '@material-ui/lab';
+import React, { useContext,useEffect } from "react";	
+import {MyContext} from '../store/context/myContext';
+
+ export const Header =()=>{
+
+
+
+	const {state, dispatch} = useContext(MyContext)
+	const {token, loading} = state
+	
+    var errorMessage = null;
+
+    useEffect(() => {
+      // if (token !== undefined && token !== null) {
+      //    // props.history.push('/login/');
+      // }
+      if (state.error) { errorMessage = <Alert severity="error">{state.error}</Alert>};
+    
+      if (state.message) { errorMessage = <Alert severity="info">{state.message}</Alert>};
+  
+      }, [state.token, state.error, state.message]) 
+
+	return(
     <div>
 		    <meta charSet="utf-8"/>
 		    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
@@ -18,5 +40,8 @@ import React from 'react';
 		    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
           />
           <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+		  
+		  {errorMessage}
+		  
 </div>	 
- )
+ )}

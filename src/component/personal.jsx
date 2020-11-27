@@ -43,7 +43,7 @@ export const Personal = (props) => {
   
     useEffect(() => {
 
-        getGradedASNTS(dispatch)
+        // getGradedASNTS(dispatch)
         node.current.addEventListener('click', (e)=>  {
             for (const select of node.current.querySelectorAll('.custom-select')) {
                 if (!select.contains(e.target)) {
@@ -79,7 +79,7 @@ export const Personal = (props) => {
                 })
             }
     
-    }, []);
+    }, [state.token]);
 
 const scrollFunction = ()=> {
     if (document.body.scrollTop > 70 || document.documentElement.scrollTop > 70) {
@@ -148,10 +148,10 @@ const handleSubmit = e => {
         </div>
 
 	
-        <div class="jumbotron bg-white">
-			<div class="container-fluid">
-                <div class="row">
-                    <div class="col-12 text-center">
+        <div className="jumbotron bg-white">
+			<div className="container-fluid">
+                <div className="row">
+                    <div className="col-12 text-center">
                         <img src={main_logo} alt = {"main_logo"} style={{width: '200px'}}/>
 
                         <br/><br/><br/>

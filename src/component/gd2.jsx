@@ -9,7 +9,7 @@ import {MyContext} from '../store/context/myContext';
 
 
 
-export const  GenDev2= (props) => {
+export const GenDev2= (props) => {
 
     const node = useRef();
     // const node2 = useRef(0);
@@ -37,6 +37,9 @@ export const  GenDev2= (props) => {
     // },[]);
   
     useEffect(() => {
+        if (state.token === undefined || state.token === null) {
+            props.history.push('/login/');
+         }
         node.current.addEventListener('click', (e)=>  {
             for (const select of node.current.querySelectorAll('.custom-select')) {
                 if (!select.contains(e.target)) {
@@ -113,7 +116,8 @@ export const  GenDev2= (props) => {
     
     // }
 
-    }, []);
+    }, [state.token]);
+
 
 
   

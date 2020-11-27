@@ -1,8 +1,10 @@
-import React ,{useEffect, useState, useCallback, useRef}from "react";
+import React ,{useEffect, useState, useContext, useRef}from "react";
 import {MenuLayout} from './menu';
 import mini_header_2 from '../static/assets/mini_header_2.png';
 // import {Redirect } from "react-router-dom";
-import { message } from "antd";
+import {MyContext} from '../store/context/myContext';
+// import { message } from "antd";
+import * as actions from "../store/actions/assignments";
 
 // import  '../static/style.css';
 // import {q1script} from './q1j.js';
@@ -17,6 +19,7 @@ export const InitialForm = (props) => {
 
     const [initia, setInitia] = useState({});
     const [error, setError] = useState(false);
+    const {state, dispatch} = useContext(MyContext)
     // const [alert, setAlert] = useState(false);
 
     // const fadeOutEffect= useCallback(( )=> {
@@ -37,8 +40,9 @@ export const InitialForm = (props) => {
     // },[]);
     // var errorMessage = null
     useEffect(() => {
-
-        //  if (error) { errorMessage = message.error("Incomplete response")};
+        if (state.token === undefined || state.token === null) {
+            props.history.push('/login/');
+         }
         node.current.addEventListener('click', (e)=>  {
             for (const select of node.current.querySelectorAll('.custom-select')) {
                 if (!select.contains(e.target)) {
@@ -80,14 +84,14 @@ export const InitialForm = (props) => {
     // return () =>  {
     //     // document.removeEventListener('load', fadeOutEffect);
     
-    // // for (const option of node.current.querySelectorAll(".custom-option")) {
-    // //     option.removeEventListener('click', () =>  {
-    // //         if (!option.classList.contains('selected')) {
-    // //             option.parentNode.querySelector('.custom-option.selected').classList.remove('selected');
-    // //             option.classList.add('selected');
-    // //             option.closest('.my-custom-select').querySelector('.custom-select__trigger span').textContent = option.textContent;
-    // //         }
-    // //     })   }
+    // for (const option of node.current.querySelectorAll(".custom-option")) {
+    //     option.removeEventListener('click', () =>  {
+    //         if (!option.classList.contains('selected')) {
+    //             option.parentNode.querySelector('.custom-option.selected').classList.remove('selected');
+    //             option.classList.add('selected');
+    //             option.closest('.my-custom-select').querySelector('.custom-select__trigger span').textContent = option.textContent;
+    //         }
+    //     })   }
     //     for (const dropdown of node.current.querySelectorAll(".custom-select-wrapper")) {
     //         dropdown.removeEventListener('click', ()=> {
     //             dropdown.querySelector('.my-custom-select').classList.toggle('open');
@@ -115,10 +119,8 @@ export const InitialForm = (props) => {
     
     // }
 
-    }, []);
+    }, [state.token]);
 
-
-  
 
 
 
@@ -171,7 +173,15 @@ window.onscroll = ()=>  {scrollFunction()};
             initial["option4"] = e.target.option4.value
             // initial["option5"] = e.target.option5.value
             initial["option6"] = e.target.option6.value
-            
+           const child =  {
+                name: initial["option1"],
+                email: initial["option2"],
+                phone: initial["option3"],
+                D_O_B: initial["option4"] ,
+                parent: state.userId.pk
+            }
+            actions.createChild(state.token, child,dispatch)
+
             for (const [key, value] of Object.entries(initial)) {
                 // if( value === ""){
                 //     // setError(true)
@@ -203,7 +213,7 @@ window.onscroll = ()=>  {scrollFunction()};
       {/* {errorMessage} */}
        {/* <div ref={node2} className="se-pre-con"></div> */}
         <div className="jumbotron forum-header mini_header bgimg" style={{backgroundImage: {mini_header_2}}}>
-            <MenuLayout/>
+            <MenuLayout props = {props}/>
             <br/>
             <br/>
             <br/><br/>

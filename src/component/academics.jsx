@@ -34,6 +34,9 @@ export const  Academics= (props) => {
     // },[]);
   
     useEffect(() => {
+         if (state.token === undefined || state.token === null) {
+               props.history.push('/login/');
+            }
         node.current.addEventListener('click', (e)=>  {
             for (const select of node.current.querySelectorAll('.custom-select')) {
                 if (!select.contains(e.target)) {
@@ -110,7 +113,7 @@ export const  Academics= (props) => {
     
     // }
 
-    }, []);
+    }, [state.token]);
 
 
   

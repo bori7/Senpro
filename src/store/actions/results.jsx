@@ -18,7 +18,8 @@ const getGradedASNTListSuccess = res=> {
 const getGradedASNTListFail = error => {
   return {
     type: actionTypes.GET_GRADED_ASSIGNMENTS_LIST_FAIL,
-    error: error
+    error: error,
+    
   };
 };
 
@@ -28,17 +29,20 @@ const createGradedASNTListStart = () => {
     
   };
 };
-const createGradedASNTListSuccess = message => {
+const createGradedASNTListSuccess = (message,res) => {
   return {
     type: actionTypes.CREATE_GRADED_ASSIGNMENTS_LIST_SUCCESS,
     message:message,
+    title:res.title,
+    explain:res.explain,
+    tips:res.tips
   };
 };
 
 const createGradedASNTListFail = error => {
   return {
     type: actionTypes.CREATE_GRADED_ASSIGNMENTS_LIST_FAIL,
-    error: error
+    error: error,
   };
 };
 
@@ -95,11 +99,11 @@ export const getGradedASNTS = (dispatch) => {
 export const createGradedASNT = (asnt, dispatch) => {
   
   dispatch(createGradedASNTListStart());
-      res['explain'] = asnt.explain 
-      res['title'] = asnt.title
-      res['tips'] = asnt.tips
+      // res['explain'] = asnt.explain 
+      // res['title'] = asnt.title
+      // res['tips'] = asnt.tips
 
-      dispatch(createGradedASNTListSuccess('Submitted'));
+      dispatch(createGradedASNTListSuccess('Submitted', asnt));
     console.log(res)
       // dispatch(createGradedASNTListFail(err));
   
