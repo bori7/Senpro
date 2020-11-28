@@ -32,8 +32,7 @@ SECRET_KEY = 'lu)5xf0b5ih3fb%u_jwrhmvll1+d5q=&ui8h7(efr#-h8_2kb-'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['toludev.pythonanywhere.com', '127.0.0.1', 'localhost']
-ALLOWED_HOSTS += ['senpro2020.herokuapp.com'] 
+ALLOWED_HOSTS = ['senpro2020.herokuapp.com', '127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -59,22 +58,9 @@ INSTALLED_APPS = [
     'rest_auth.registration',
     'corsheaders',
     'whitenoise.runserver_nostatic', 
-    
-    
+    'psycopg2',
     
 ]
-
-SITE_ID = 1
-REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
-    ),
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.TokenAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.BasicAuthentication',
-    ),
-}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -87,6 +73,7 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware', 
      'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
+
 
 ROOT_URLCONF = 'senpro.urls'
 
@@ -106,8 +93,54 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'senpro.wsgi.application'
+AUTHENTICATION_BACKENDS = [
+    
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
 
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+    
+]
+
+
+LANGUAGE_CODE = 'en-us'
+
+TIME_ZONE = 'UTC'
+
+USE_I18N = True
+
+USE_L10N = True
+
+USE_TZ = True
+
+REST_USE_JWT = True
+
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'build/static')]
+
+STATIC_ROOT = os.path.join(BASE_DIR,'build', "static")
+
+SITE_ID = 1
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+}
+CSRF_COOKIE_NAME = "csrftoken"
+
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+
+ACCOUNT_AUTHENTICATION_METHOD = 'username'
+
+ACCOUNT_EMAIL_REQUIRED = False
+
+
+WSGI_APPLICATION = 'senpro.wsgi.application'
+django_heroku.settings(locals())
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
@@ -118,6 +151,12 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+
+db_from_env = dj_database_url.config(conn_max_age=600)
+
+DATABASES['default'].update(db_from_env)
+
 
 
 # Password validation
@@ -142,55 +181,22 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-TIME_ZONE = 'UTC'
 
-USE_I18N = True
-
-USE_L10N = True
-
-USE_TZ = True
-
-REST_USE_JWT = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'build/static')]
 
-STATIC_ROOT = os.path.join(BASE_DIR,'build', "static")
-
-django_heroku.settings(locals())
 
 CORS_ALLOW_CREDENTIALS = True
 
-
 CORS_ORIGIN_ALLOW_ALL = True
-CORS_ORIGIN_WHITELIST = (
-    'http://localhost:3000', 'http://127.0.0.1:8000',  'http://127.0.0.1:3000'
-)
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-AUTHENTICATION_BACKENDS = [
-    
-    # Needed to login by username in Django admin, regardless of `allauth`
-    'django.contrib.auth.backends.ModelBackend',
+# CORS_ORIGIN_WHITELIST = (
+#     'http://localhost:3000', 'http://127.0.0.1:8000',  'http://127.0.0.1:3000'
+# )
 
-    # `allauth` specific authentication methods, such as login by e-mail
-    'allauth.account.auth_backends.AuthenticationBackend',
-    
-]
-
-ACCOUNT_EMAIL_VERIFICATION = 'none'
-
-ACCOUNT_AUTHENTICATION_METHOD = 'username'
-
-ACCOUNT_EMAIL_REQUIRED = False
-
-db_from_env = dj_database_url.config(conn_max_age=600)
-
-DATABASES['default'].update(db_from_env)
 
 

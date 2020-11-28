@@ -180,7 +180,7 @@ window.onscroll = ()=>  {scrollFunction()};
                 D_O_B: initial["option4"] ,
                 parent: state.userId.pk
             }
-            actions.createChild(state.token, child,dispatch)
+            // actions.createChild(state.token, child,dispatch)
 
             for (const [key, value] of Object.entries(initial)) {
                 // if( value === ""){
