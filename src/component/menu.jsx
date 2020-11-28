@@ -1,4 +1,4 @@
-import React, { useContext,useEffect } from "react";	
+import React, { useContext,useEffect,useState } from "react";	
 import {MyContext} from '../store/context/myContext';
 import main_logo from '../static/assets/main-logo.png';
 import banner_logo from "../static/assets/banner_logo.png";
@@ -13,6 +13,7 @@ import { useAlert } from 'react-alert'
     
     const {state, dispatch} = useContext(MyContext)
     const {token, loading} = state
+    const [load, setLoad] = useState(true);
 
     
     var errorMessage = null;
@@ -22,9 +23,10 @@ import { useAlert } from 'react-alert'
       //    // props.history.push('/login/');
       // }
       const timer = setTimeout(() => {
-        <div class="se-pre-con"></div>
+        
+        setLoad(false)
         // console.log('This will run after 1 second!')
-      }, 5000);
+      }, 900);
 
      
       if (state.error)
@@ -49,8 +51,9 @@ import { useAlert } from 'react-alert'
 
 return (
     <div className="container-fluid">
-    {/* {loader} */}
-  {state.loading ? <div class="se-pre-con"></div> : ''}
+    {load? <div class="se-pre-con"></div>:""}
+    
+  {loading ? <div class="se-pre-con"></div> : ''}
   
     <div className="row">
         <div className="col-12">

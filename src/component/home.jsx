@@ -1,8 +1,8 @@
 
 
-import React ,{useEffect, useState, useCallback, useRef} from "react";
+import React ,{useEffect, useState, useContext, useRef}from "react";
 import {MenuLayout} from './menu';
-import header_1 from '../static/assets/header_1.jpg';
+import header_1 from "../static/assets/header_1.jpg";
 import header_2 from '../static/assets/header_2.jpg';
 import header_3 from '../static/assets/header_3.jpg';
 import header_4 from '../static/assets/header_4.jpg';
@@ -23,29 +23,128 @@ import laide from "../static/assets/laide.png";
 import akin from "../static/assets/akin.png";
 import {Link } from "react-router-dom";
 
-
+import {MyContext} from '../store/context/myContext';
 
 
 
 //  <div class="se-pre-con"></div> 
+      
+export const Home = (props) => {
+
+    const node = useRef();
+    // const node2 = useRef(0);
+    // const node3 = useRef();
+
+    const [initia, setInitia] = useState({});
+    const [error, setError] = useState(false);
+    const {state, dispatch} = useContext(MyContext)
+    // const [alert, setAlert] = useState(false);
+
+    useEffect(() => {
+       
+        node.current.addEventListener('click', (e)=>  {
+            for (const select of node.current.querySelectorAll('.custom-select')) {
+                if (!select.contains(e.target)) {
+                    select.classList.remove('open');
+                }
+            }
+        });
+
+        for (const option of node.current.querySelectorAll(".custom-option")) {
+            option.addEventListener('click', () =>  {
+                if (!option.classList.contains('selected')) {
+                    option.parentNode.querySelector('.custom-option.selected').classList.remove('selected');
+                    option.classList.add('selected');
+                    option.closest('.my-custom-select').querySelector('.custom-select__trigger span').textContent = option.textContent;
+                }
+            })   }
+      
+            for (const dropdown of node.current.querySelectorAll(".custom-select-wrapper")) {
+                dropdown.addEventListener('click', ()=> {
+                    dropdown.querySelector('.my-custom-select').classList.toggle('open');
+                })
+                
+            }
+
+            for (const option of node.current.querySelectorAll(".custom-choice")) {
+                option.addEventListener('click', () =>{
+                    if (!option.classList.contains('active')) {
+                        if( option.parentNode.querySelector('.custom-choice.active')){
+                         option.parentNode.querySelector('.custom-choice.active').classList.remove('active');}
+                         option.classList.add('active');
+                        // option.closest('.my-custom-select').querySelector('.custom-select__trigger span').textContent = option.textContent; 
+                    }
+                })
+            }
+    //   if(alert){  document.addEventListener('load', fadeOutEffect)}
+    //   else{ document.removeEventListener('load', fadeOutEffect);}
+  
+
+    // return () =>  {
+    //     // document.removeEventListener('load', fadeOutEffect);
+    
+    // for (const option of node.current.querySelectorAll(".custom-option")) {
+    //     option.removeEventListener('click', () =>  {
+    //         if (!option.classList.contains('selected')) {
+    //             option.parentNode.querySelector('.custom-option.selected').classList.remove('selected');
+    //             option.classList.add('selected');
+    //             option.closest('.my-custom-select').querySelector('.custom-select__trigger span').textContent = option.textContent;
+    //         }
+    //     })   }
+    //     for (const dropdown of node.current.querySelectorAll(".custom-select-wrapper")) {
+    //         dropdown.removeEventListener('click', ()=> {
+    //             dropdown.querySelector('.my-custom-select').classList.toggle('open');
+    //         })
+            
+    //     }
+    //     document.removeEventListener('click', (e)=>  {
+    //         for (const select of node.current.querySelectorAll('.custom-select')) {
+    //             if (!select.contains(e.target)) {
+    //                 select.classList.remove('open');
+    //             }
+    //         }
+    //     });    
+        
+    //     for (const option of node.current.querySelectorAll(".custom-choice")) {
+    //         option.removeEventListener('click', () =>{
+    //             if (!option.classList.contains('active')) {
+    //                if( option.parentNode.querySelector('.custom-choice.active')){
+    //                 option.parentNode.querySelector('.custom-choice.active').classList.remove('active');}
+    //                 option.classList.add('active');
+    //                 // option.closest('.my-custom-select').querySelector('.custom-select__trigger span').textContent = option.textContent; 
+    //             }
+    //         })
+    //     }
+    
+    // }
+
+    }, [state.token]);
+
+
+
+
+const scrollFunction = ()=> {
+    if (document.body.scrollTop > 70 || document.documentElement.scrollTop > 70) {
+    document.getElementById("scrollnav").style.top = "0";
+    } else {
+    document.getElementById("scrollnav").style.top = "-150px";
+    }
+}
+
+window.onscroll = ()=>  {scrollFunction()};
+
+
+
+return(
+    <div ref={node}>
         
 
-export const Home = () => {
-
-
-
-
-
-    return(
-        <div>
-           
-
 <div className="jumbotron home-slide">
-    <div className="home-slide-item"  style={{backgroundImage: {header_1}}}></div>
-    <div className="home-slide-item" style={{backgroundImage: {header_2}}}></div>
-    <div className="home-slide-item" style={{backgroundImage: {header_3}}}></div>
-    <div className="home-slide-item" style={{backgroundImage: {header_4}}}></div>
-    <div className="home-slide-item" style={{backgroundImage: {header_5}}}></div>
+    <div className="home-slide-item"  style={{backgroundImage: `url(${header_1})`}}></div>
+    <div className="home-slide-item" style={{backgroundImage: `url(${header_2})`}}></div>
+    <div className="home-slide-item" style={{backgroundImage: `url(${header_3})`}}></div>
+    <div className="home-slide-item" style={{backgroundImage: `url(${header_4})`}}></div>
+    <div className="home-slide-item" style={{backgroundImage: `url(${header_5})`}}></div>
 
     
     <MenuLayout/>
