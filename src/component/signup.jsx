@@ -4,8 +4,8 @@ import {MyContext} from '../store/context/myContext';
 import mini_header_2 from '../static/assets/mini_header_2.png';
 import * as actions from "../store/actions/auth";
 // import {Redirect } from "react-router-dom";
-import { message } from "antd";
-
+import { Divider, Card } from '@material-ui/core'; 
+import { useAlert } from 'react-alert'
 // import  '../static/style.css';
 // import {q1script} from './q1j.js';
 
@@ -14,12 +14,13 @@ import { message } from "antd";
 export const SignUp = (props) => {
 
     const node = useRef();
-    // const node2 = useRef(0);
+    const alert = useAlert()
     // const node3 = useRef();
     const {state,dispatch} = useContext(MyContext)
 
-    const [initia, setInitia] = useState({});
-    const [error, setError] = useState(false);
+     const [stat, setStat] = useState({ input: {},
+        errors: {}});
+    // const [error, setError] = useState(false);
     // const [alert, setAlert] = useState(false);
 
     // const fadeOutEffect= useCallback(( )=> {
@@ -40,7 +41,8 @@ export const SignUp = (props) => {
     // },[]);
     // var errorMessage = null
     useEffect(() => {
-
+        if(state.token){
+            props.history.push('/');}
         //  if (error) { errorMessage = message.error("Incomplete response")};
         node.current.addEventListener('click', (e)=>  {
             for (const select of node.current.querySelectorAll('.custom-select')) {
@@ -118,12 +120,12 @@ export const SignUp = (props) => {
     
     // }
 
-    }, []);
+    }, [ state.token]);
 
 
   
 
-
+   
 const scrollFunction = ()=> {
     if (document.body.scrollTop > 70 || document.documentElement.scrollTop > 70) {
     document.getElementById("scrollnav").style.top = "0";
@@ -161,20 +163,49 @@ window.onscroll = ()=>  {scrollFunction()};
 //     }
 // });
     
-// const check = () => {
-//     if (document.getElementById('option3').value ==
-//     document.getElementById('option4').value) {
-//         document.getElementById('message').style.color = 'green';
-//         node.current.getElementById('message').innerHTML = 'matching';
-//     } else {
-//         node.current.getElementById('message').style.color = 'red';
-//         node.current.getElementById('message').innerHTML = 'not matching';
-//     }
-//   }
+const validate=()=>{
+
+    let input = stat.input;
+    let errors = stat.errors;
+    let isValid = true;
+
+    if (!input["option3"]) {
+      isValid = false;
+      errors["option3"] = "Please enter your password.";
+    }
+    if (!input["option4"]) {
+      isValid = false;
+      errors["option4"] = "Please enter your confirm password.";
+    }
+
+    if (typeof input["option3"] !== "undefined" && typeof input["option4"] !== "undefined") {
+      if (input["option3"] !== input["option4"]) {
+        isValid = false;
+        errors["option4"] = "Passwords don't match.";
+      }
+    } 
+    setStat({
+        input:input,
+      errors: errors
+    });
+    return isValid;
+}
+
+   
+
+const handleChange = (event)=>{
+    event.preventDefault();
+    let input = stat.input;
+    let errors = stat.errors;
+    input[event.target.name] = event.target.value;
+    errors[event.target.name] = '';
+    setStat({ input, errors
+ });
+  }
 
     
     const initial=  {}
-    const handleSubmit = e => {
+const handleSubmit = e => {
     e.preventDefault();
  
             initial["option1"] = e.target.option1.value
@@ -182,13 +213,30 @@ window.onscroll = ()=>  {scrollFunction()};
             initial["option3"] = e.target.option3.value
             initial["option4"] = e.target.option4.value
 
-    actions.authSignup( initial["option1"].toLowerCase(), initial["option2"],
-    initial["option3"],initial["option4"],dispatch)
-    if(state.token){
-        props.history.push('/login/');
-    }else{
-        props.history.push('/signup/');
-    }
+
+            if(validate()){
+
+                console.log(stat);
+                let input = {};
+                let errors = {};
+                input["option3"] = "";
+                input["option4"] = "";
+                errors["option3"] = "";
+                errors["option4"] = "";
+                setStat({input:input,errors:errors});
+                
+                actions.authSignup( initial["option1"].toLowerCase(), initial["option2"],
+                    initial["option3"],initial["option4"],dispatch)
+                if(state.token){
+                    alert.show('Welcome')
+                    props.history.push('/');
+                }else{
+                    props.history.push('/signup/');
+                }
+            }
+        }       
+
+    
    
      
 //             for (const [key, value] of Object.entries(initial)) {
@@ -210,7 +258,6 @@ window.onscroll = ()=>  {scrollFunction()};
 //             setInitia(initial)
 //   }
 
-}
 
 //   const handleReturn = e => {
 //     e.preventDefault();
@@ -276,9 +323,12 @@ window.onscroll = ()=>  {scrollFunction()};
                                 <p className="question">Password</p>
                             </div>
                             <div className="col-md-3">
-                            <input input className="question-input form-control" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+                            <input  onChange={handleChange} value={stat.input.option3} className="question-input form-control" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
                               placeholder="Password" type="password" id = "option3"name = "option3"  required />
+                             <div className="text-danger">{stat.errors.option3}</div>
                              </div>
+                             
+         
                         </div>
 
                         <div className="row questions">
@@ -286,15 +336,14 @@ window.onscroll = ()=>  {scrollFunction()};
                                 <p className="question">Confirm Password</p>
                             </div>
                             <div className="col-md-3">
-                            <input input className="question-input form-control" placeholder="Confirm Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"  title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+                            <input  onChange={handleChange} value={stat.input.option4} className="question-input form-control" placeholder="Confirm Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"  title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
                              type="password" id = "option4" name = "option4"  required />
-                             <span id='message'></span>
+                                <Card><div className="text-danger">{stat.errors.option4}</div></Card>
+                                <Divider/>
+
                              </div>
                         </div>
 
-
-         
-                       
                         <br/>
                             <br/>
                             <br/>

@@ -184,7 +184,7 @@ export const createChild = (token, child, dispatch) => {
       })
       .catch(err => {
         console.log(err.response.request.responseText)
-        dispatch(createChildFail(err.response.request.responseText));
+        // dispatch(createChildFail(err.response.request.responseText));
       });
   
 };

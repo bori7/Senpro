@@ -33,7 +33,7 @@ SECRET_KEY = 'lu)5xf0b5ih3fb%u_jwrhmvll1+d5q=&ui8h7(efr#-h8_2kb-'
 DEBUG = True
 
 ALLOWED_HOSTS = ['toludev.pythonanywhere.com', '127.0.0.1', 'localhost']
-ALLOWED_HOSTS += ['senpro2020.herokuapp.com','http://127.0.0.1:8000'] 
+ALLOWED_HOSTS += ['senpro2020.herokuapp.com'] 
 
 
 # Application definition
@@ -54,6 +54,8 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'allauth',
     'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
     'rest_auth.registration',
     'corsheaders',
     'whitenoise.runserver_nostatic', 
@@ -63,18 +65,16 @@ INSTALLED_APPS = [
 ]
 
 SITE_ID = 1
-
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
     ),
 }
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -168,12 +168,9 @@ CORS_ALLOW_CREDENTIALS = True
 
 
 CORS_ORIGIN_ALLOW_ALL = True
-# CORS_ORIGIN_WHITELIST = (
-#     'https://localhost:3000',
-#     'http://127.0.0.1:8000',
-#     'http://localhost:8000',
-# )
-
+CORS_ORIGIN_WHITELIST = (
+    'http://localhost:3000', 'http://127.0.0.1:8000',  'http://127.0.0.1:3000'
+)
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 AUTHENTICATION_BACKENDS = [
@@ -186,14 +183,11 @@ AUTHENTICATION_BACKENDS = [
     
 ]
 
-# REST_AUTH_SERIALIZERS = {
-#     'USER_DETAILS_SERIALIZER': 'users.serializers.UserSerializer',
-#     'TOKEN_SERIALIZER': 'users.serializers.TokenSerializer'
-# }
+ACCOUNT_EMAIL_VERIFICATION = 'none'
 
-# REST_AUTH_REGISTER_SERIALIZERS = {
-#     'REGISTER_SERIALIZER': 'users.serializers.CustomRegisterSerializer',
-# }
+ACCOUNT_AUTHENTICATION_METHOD = 'username'
+
+ACCOUNT_EMAIL_REQUIRED = False
 
 db_from_env = dj_database_url.config(conn_max_age=600)
 

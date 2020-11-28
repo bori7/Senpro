@@ -1,6 +1,6 @@
 // import axios from "axios";
 import * as actionTypes from "./actionTypes";
-import  {res} from '../clientResult';
+// import  {res} from '../clientResult';
 
 const getGradedASNTListStart = () => {
   return {
@@ -13,6 +13,18 @@ const getGradedASNTListSuccess = res=> {
     type: actionTypes.GET_GRADED_ASSIGNMENTS_LIST_SUCCESS,
     res: res
   };
+};
+
+export const messageSuccess = (dispatch) => {
+  return dispatch({
+    type: actionTypes.MESSAGE_SUCCESS,
+  })
+};
+
+export const errorSuccess = (dispatch) => {
+  return dispatch({
+    type: actionTypes.ERROR_SUCCESS,
+  })
 };
 
 const getGradedASNTListFail = error => {
@@ -71,8 +83,8 @@ export const getGradedASNTS = (dispatch) => {
  
  
     // const assignments = res.data;
-    dispatch(getGradedASNTListSuccess(res));
-    console.log(res)
+    dispatch(getGradedASNTListSuccess());
+    console.log()
     
    
 };
@@ -104,7 +116,7 @@ export const createGradedASNT = (asnt, dispatch) => {
       // res['tips'] = asnt.tips
 
       dispatch(createGradedASNTListSuccess('Submitted', asnt));
-    console.log(res)
+    console.log(asnt)
       // dispatch(createGradedASNTListFail(err));
   
 };

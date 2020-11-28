@@ -217,25 +217,25 @@ window.onscroll = ()=>  {scrollFunction()};
                      
                         <div className="row questions">
                            
-                            <label className="col-md-3 custom-choice">
+                            <div className="col-md-4 custom-choice">
                             <Link to={`/academics/`}>
                                 <button className="question-input form-control ">ACADEMICS</button> 
-                                </Link>
-                            </label>
-                        </div>
-
-                        <div className="row questions">
-                           
-                            <div className="col-md-3">
-                            <Link to={`/behavior/`}>
-                                <button className="question-input form-control custom-choice">EMOTIONS AND BEHAVIORS</button> 
                                 </Link>
                             </div>
                         </div>
 
                         <div className="row questions">
                            
-                            <div className="col-md-3">
+                            <div className="col-md-4 custom-choice">
+                            <Link to={`/behavior/`}>
+                                <button className="question-input form-control custom-choice"><span>EMOTIONS AND BEHAVIORS<span/></span></button> 
+                                </Link>
+                            </div>
+                        </div>
+
+                        <div className="row questions">
+                           
+                            <div className="col-md-4 custom-choice">
                             <Link to={`/speech/`}>
                                 <button className="question-input form-control custom-choice">SPEECH AND LANGUAGE</button>
                                 </Link> 
@@ -244,7 +244,7 @@ window.onscroll = ()=>  {scrollFunction()};
 
                         <div className="row questions">
                             
-                            <div className="col-md-3">
+                            <div className="col-md-4 custom-choice">
                             <Link to={`/mental/`}>
                                 <button className="question-input form-control custom-choice">MENTAL HEALTH</button> 
                                 </Link>
@@ -252,7 +252,6 @@ window.onscroll = ()=>  {scrollFunction()};
                         </div>
 
                   
-                       
                         <br/>
                             <br/>
                             <br/>

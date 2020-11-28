@@ -4,7 +4,7 @@ import mini_header_2 from '../static/assets/mini_header_2.png';
 import { Link } from "react-router-dom";
 import {MyContext} from '../store/context/myContext';
 
-import { message } from "antd";
+// import { message } from "antd";
 import * as actions from "../store/actions/auth";
 
 // import  '../static/style.css';
@@ -39,11 +39,11 @@ export const Login = (props) => {
     //         }
     //     }, 180);
     // },[]);
-    var errorMessage = null
+    // var errorMessage = null
     useEffect(() => {
-        if (state.error) { errorMessage = message.error(state.error)}
+        // if (state.error) { errorMessage = message.error(state.error)}
     
-        //  if (error) { errorMessage = message.error("Incomplete response")};
+        // //  if (error) { errorMessage = message.error("Incomplete response")};
         node.current.addEventListener('click', (e)=>  {
             for (const select of node.current.querySelectorAll('.custom-select')) {
                 if (!select.contains(e.target)) {
@@ -120,7 +120,7 @@ export const Login = (props) => {
     
     // }
 
-    }, [state.error]);
+    }, [state.error,state.token]);
 
 
   
@@ -175,10 +175,10 @@ const handleSubmit = e => {
             initial["option2"] = e.target.option2.value
 
             actions.authLogin(initial["option1"].toLowerCase(), initial["option2"],dispatch)
-            if (!state.error || state.token){
+            // if (!state.error || state.token){
         
                 props.history.push("/");
-              }
+            //   }
      
 //             for (const [key, value] of Object.entries(initial)) {
 //                 // if( value === ""){

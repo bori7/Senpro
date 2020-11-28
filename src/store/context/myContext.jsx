@@ -21,6 +21,18 @@ const initialState = {
   cartItems:[],
 };
 
+const messageSuccess = (state, action) => {
+  return updateObject(state, {
+    message: null,
+    
+  });
+};
+
+const errorSuccess = (state, action) => {
+  return updateObject(state, {
+    error:null,
+  });
+};
 const getGradedASNTListStart = (state, action) => {
   return updateObject(state, {
     error: null,
@@ -256,6 +268,11 @@ const reducer = (state, action) => {
       return createResultSuccess(state, action);
     case actionTypes.CREATE_RESULT_FAIL:
       return createResultFail(state, action);
+
+      case actionTypes.MESSAGE_SUCCESS:
+        return messageSuccess(state, action);
+        case actionTypes.ERROR_SUCCESS:
+          return errorSuccess(state, action);
 
     case actionTypes.GET_GRADED_ASSIGNMENT_LIST_START:
       return getGradedASNTListStart(state, action);

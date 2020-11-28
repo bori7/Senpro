@@ -60,7 +60,7 @@ export const Home = () => {
                 </Link>
                 </div>
         </div>
-        <a href="#" className="scroller">Learn more below</a>
+        {/* <a href="#" className="scroller">Learn more below</a> */}
     </div>
 </div>
 

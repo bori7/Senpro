@@ -2,30 +2,43 @@ import React, { useContext,useEffect } from "react";
 import {MyContext} from '../store/context/myContext';
 import main_logo from '../static/assets/main-logo.png';
 import banner_logo from "../static/assets/banner_logo.png";
-// import {message } from "antd";
 import * as actions from "../store/actions/auth";
+import {errorSuccess, messageSuccess} from "../store/actions/results";
 // import  '../../src/static/style.css';
 import {Link } from "react-router-dom";
-import { Alert } from '@material-ui/lab';
+import { useAlert } from 'react-alert'
 
   export const MenuLayout = (props) => {
-
+    const alert = useAlert()
     
     const {state, dispatch} = useContext(MyContext)
     const {token, loading} = state
 
     
-    // var errorMessage = null;/
+    var errorMessage = null;
+    // var loader = null
+    useEffect(() => {
+      // if (token !== undefined && token !== null) {
+      //    // props.history.push('/login/');
+      // }
+      const timer = setTimeout(() => {
+        <div class="se-pre-con"></div>
+        // console.log('This will run after 1 second!')
+      }, 5000);
 
-    // useEffect(() => {
-    //   // if (token !== undefined && token !== null) {
-    //   //    // props.history.push('/login/');
-    //   // }
-    //   if (state.error) { errorMessage = <Alert severity="error">{state.error}</Alert>};
+     
+      if (state.error)
+       { errorMessage = alert.show(state.error,{ type: 'error',});
+        errorSuccess(dispatch)
+      };
     
-    //   if (state.message) { errorMessage = <Alert severity="info">{state.message}</Alert>};
+      if (state.message) { 
+        errorMessage = alert.show(state.message,{ type: 'info',})
+        messageSuccess(dispatch)
+      };
   
-    //   }, [state.token, state.error, state.message]) 
+      return () => clearTimeout(timer);
+      }, [state.token, state.error, state.message]) 
 
       const handleSignout= e => {
         e.preventDefault();
@@ -36,6 +49,8 @@ import { Alert } from '@material-ui/lab';
 
 return (
     <div className="container-fluid">
+    {/* {loader} */}
+  {state.loading ? <div class="se-pre-con"></div> : ''}
   
     <div className="row">
         <div className="col-12">
