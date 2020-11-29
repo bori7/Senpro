@@ -175,10 +175,10 @@ const handleSubmit = e => {
             initial["option2"] = e.target.option2.value
 
             actions.authLogin(initial["option1"].toLowerCase(), initial["option2"],dispatch)
-            // if (!state.error || state.token){
+            if (state.token){
         
-                props.history.push("/");
-            //   }
+                props.history.push("/initial/");
+              }
      
 //             for (const [key, value] of Object.entries(initial)) {
 //                 // if( value === ""){
