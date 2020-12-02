@@ -8,11 +8,13 @@ from rest_framework.status import (
 
 from .models import Child, Client, Result
 from .serializers import ChildSerializer, ClientSerializer, ResultSerializer
+from rest_framework.authentication import SessionAuthentication
 
 
 class ChildViewSet(viewsets.ModelViewSet):
     serializer_class = ChildSerializer
-    permission_classes = (permissions.AllowAny, )
+    authentication_classes = [ SessionAuthentication,]
+    permission_classes = (permissions.IsAuthenticated, )
     queryset = Child.objects.all()
 
     # def create(self, request):
@@ -25,9 +27,10 @@ class ChildViewSet(viewsets.ModelViewSet):
 
 
 class ResultViewSet(viewsets.ModelViewSet):
-    permission_classes = (permissions.AllowAny, )
+    authentication_classes = [ SessionAuthentication,]
+    permission_classes = (permissions.IsAuthenticated, )
     serializer_class = ResultSerializer
-
+    queryset = Result.objects.all()
     # def get_queryset(self):
     #     queryset = Result.objects.all()
     #     username = self.request.query_params.get('username', None)

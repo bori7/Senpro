@@ -1,8 +1,9 @@
-from django.contrib.auth import get_user_model
+# from django.contrib.auth import get_user_model
 from django.db import models
+from django.contrib.auth.models import User
 from phonenumber_field.modelfields import PhoneNumberField
 
-User = get_user_model()
+# User = get_user_model()
 
 class Client(models.Model):
     user = models.OneToOneField(
@@ -15,7 +16,7 @@ class Client(models.Model):
 
 class Child(models.Model):
     parent = models.ForeignKey(
-        Client, on_delete=models.CASCADE)
+        User, on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
     email = models.EmailField(max_length = 254)
     phone = models.IntegerField(null=False, blank=False, unique=True)

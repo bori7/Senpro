@@ -170,6 +170,8 @@ export const createChild = (token, child, dispatch) => {
  
     dispatch(createChildStart());
     console.log(token,child)
+    axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+    axios.defaults.xsrfCookieName = "csrftoken";
     axios.defaults.headers = {
       "Content-Type": "application/json",
       Authorization: `Token ${token}`
@@ -192,6 +194,8 @@ export const createResult = (token, result, dispatch) => {
  
     dispatch(createResultStart());
     console.log(token,result)
+    axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+    axios.defaults.xsrfCookieName = "csrftoken";
     axios.defaults.headers = {
       "Content-Type": "application/json",
       Authorization: `Token ${token}`

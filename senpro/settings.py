@@ -137,7 +137,7 @@ ACCOUNT_EMAIL_VERIFICATION = 'none'
 ACCOUNT_AUTHENTICATION_METHOD = 'username'
 
 ACCOUNT_EMAIL_REQUIRED = False
-
+# AUTH_USER_MODEL = 'django.contrib.admin.User'
 
 WSGI_APPLICATION = 'senpro.wsgi.application'
 django_heroku.settings(locals())
