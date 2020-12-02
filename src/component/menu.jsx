@@ -26,7 +26,7 @@ import { useAlert } from 'react-alert'
         
         setLoad(false)
         // console.log('This will run after 1 second!')
-      }, 900);
+      }, 500);
 
      
       if (state.error)
@@ -79,7 +79,9 @@ return (
             <a className="nav-link" href="#">Team</a>
           </li>
           <li className="nav-item ">
-            <a className="nav-link" href="/forum">Forum</a>
+          <Link className="nav-link" to={`/forum/`}>
+            Forum
+            </Link>
           </li>
           
           
@@ -121,7 +123,9 @@ return (
             <a className="nav-link" href="#">Team</a>
           </li>
           <li className="nav-item animate__animated animate__fadeInLeft">
-            <a className="nav-link" href="/forum">Forum</a>
+          <Link className="nav-link" to={`/forum/`}>
+            Forum
+          </Link>
           </li>
           
           
@@ -147,7 +151,7 @@ return (
     
         </div>
     </div>
-
+        {errorMessage}
 
 </div>
 

@@ -19,7 +19,7 @@ export const Forum = (props)=> {
 
     useEffect(() => {
         console.log(state.token)
-        actions.getForum(state.token, dispatch)
+        
         // if (state.token === undefined || state.token === null) {
         //     props.history.push('/login/');
         //  }
@@ -59,7 +59,7 @@ export const Forum = (props)=> {
                     }
                 })
             }
-
+            actions.getForum(state.token, dispatch)
     }, [state.token]);
 
 

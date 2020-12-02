@@ -205,7 +205,7 @@ export const createResult = (token, result, dispatch) => {
       .then(res => {
         console.log(res)
         dispatch(createResultSuccess());
-        ;
+        
 
       })
       .catch(err => {
