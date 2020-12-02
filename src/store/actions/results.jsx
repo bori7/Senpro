@@ -1,4 +1,4 @@
-// import axios from "axios";
+import axios from "axios";
 import * as actionTypes from "./actionTypes";
 // import  {res} from '../clientResult';
 
@@ -8,10 +8,25 @@ const getGradedASNTListStart = () => {
   };
 };
 
+const getForumListStart = () => {
+  return {
+    type: actionTypes.GET_FORUM_LIST_START
+  };
+};
+
+
 const getGradedASNTListSuccess = res=> {
   return {
     type: actionTypes.GET_GRADED_ASSIGNMENTS_LIST_SUCCESS,
     res: res
+  };
+};
+
+
+const getForumListSuccess = forums => {
+  return {
+    type: actionTypes.GET_FORUM_LIST_SUCCESS,
+    forums: forums
   };
 };
 
@@ -30,6 +45,14 @@ export const errorSuccess = (dispatch) => {
 const getGradedASNTListFail = error => {
   return {
     type: actionTypes.GET_GRADED_ASSIGNMENTS_LIST_FAIL,
+    error: error,
+    
+  };
+};
+
+const getForumListFail = error => {
+  return {
+    type: actionTypes.GET_FORUM_LIST_FAIL,
     error: error,
     
   };
@@ -57,6 +80,30 @@ const createGradedASNTListFail = error => {
     error: error,
   };
 };
+
+
+export const getForum = (token,dispatch) => {
+ 
+    dispatch(getForumListStart());
+    console.log(token)
+    axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+    axios.defaults.xsrfCookieName = "csrftoken";
+    axios.defaults.headers = {
+      "Content-Type": "application/json",
+      Authorization: `Token ${token}`
+    };
+    axios
+      .get("/community/forums/")
+      .then(res => {
+        const forums = res.data;
+        dispatch(getForumListSuccess(forums));
+        console.log(forums, res)
+      })
+      .catch(err => {
+        console.log(err)
+        dispatch(getForumListFail(err.response.data.message));
+      });
+  };
 
 // export const getGradedASNTS = (username, token,dispatch) => {
  

@@ -19,6 +19,7 @@ const initialState = {
   loading: false,
   message: null,
   cartItems:[],
+  forums: null
 };
 
 const messageSuccess = (state, action) => {
@@ -92,6 +93,12 @@ const getASNTListStart = (state, action) => {
   });
 };
 
+const getForumListStart = (state, action) => {
+  return updateObject(state, {
+    error: null,
+    loading: true
+  });
+};
 const getASNTListSuccess = (state, action) => {
   return updateObject(state, {
     cartItems: action.cartItem,
@@ -101,7 +108,23 @@ const getASNTListSuccess = (state, action) => {
   });
 };
 
+const getForumListSuccess = (state, action) => {
+  return updateObject(state, {
+    forums: action.forums,
+    error: null,
+    loading: false,
+    message:null,
+  });
+};
+
 const getASNTListFail = (state, action) => {
+  return updateObject(state, {
+    error: action.error,
+    loading: false
+  });
+};
+
+const getForumListFail = (state, action) => {
   return updateObject(state, {
     error: action.error,
     loading: false
@@ -280,6 +303,14 @@ const reducer = (state, action) => {
       return getGradedASNTListSuccess(state, action);
     case actionTypes.GET_GRADED_ASSIGNMENTS_LIST_FAIL:
       return getGradedASNTListFail(state, action);  
+
+      case actionTypes.GET_FORUM_LIST_START:
+        return getForumListStart(state, action);
+      case actionTypes.GET_FORUM_LIST_SUCCESS:
+        return getForumListSuccess(state, action);
+      case actionTypes.GET_FORUM_LIST_FAIL:
+        return getForumListFail(state, action); 
+
     case actionTypes.CREATE_GRADED_ASSIGNMENT_LIST_START:
       return createGradedASNTListStart(state, action);
     case actionTypes.CREATE_GRADED_ASSIGNMENTS_LIST_SUCCESS:

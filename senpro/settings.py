@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'formtools',
     'main',
     'client',
+    'forum',
     'rest_framework',
     'rest_framework.authtoken',
     'rest_auth',
