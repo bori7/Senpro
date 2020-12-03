@@ -1,6 +1,7 @@
 import axios from "axios";
 import * as actionTypes from "./actionTypes";
 import  {cart_item} from '../clientResult';
+import  {HOST_URL} from '../clientResult';
 
 const getASNTListStart = () => {
   return {
@@ -177,7 +178,7 @@ export const createChild = (token, child, dispatch) => {
       Authorization: `Token ${token}`
     };
   axios
-      .post(`/clients/childs/`, child)
+      .post(`${HOST_URL}/clients/childs/`, child)
       .then(res => {
         console.log(res)
         dispatch(createChildSuccess());
@@ -201,7 +202,7 @@ export const createResult = (token, result, dispatch) => {
       Authorization: `Token ${token}`
     };
   axios
-      .post(`/clients/results/`, result)
+      .post(`${HOST_URL}/clients/results/`, result)
       .then(res => {
         console.log(res)
         dispatch(createResultSuccess());

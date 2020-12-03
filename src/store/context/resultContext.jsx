@@ -4,7 +4,7 @@ import React, { useReducer, createContext } from "react";
 
 
 
-export const MyContext = createContext();
+export const ResultContext = createContext();
 
 const initialState = {
   explain: [],
@@ -19,6 +19,7 @@ const initialState = {
   loading: false,
   message: null,
   cartItems:[],
+  forums: []
 };
 
 const messageSuccess = (state, action) => {
@@ -92,6 +93,12 @@ const getASNTListStart = (state, action) => {
   });
 };
 
+const getForumListStart = (state, action) => {
+  return updateObject(state, {
+    error: null,
+    loading: true
+  });
+};
 const getASNTListSuccess = (state, action) => {
   return updateObject(state, {
     cartItems: action.cartItem,
@@ -101,6 +108,14 @@ const getASNTListSuccess = (state, action) => {
   });
 };
 
+const getForumListSuccess = (state, action) => {
+  return updateObject(state, {
+    forums: action.forums,
+    error: null,
+    loading: false,
+    message:null,
+  });
+};
 
 const getASNTListFail = (state, action) => {
   return updateObject(state, {
@@ -109,7 +124,12 @@ const getASNTListFail = (state, action) => {
   });
 };
 
-
+const getForumListFail = (state, action) => {
+  return updateObject(state, {
+    error: action.error,
+    loading: false
+  });
+};
 
 const getASNTDetailStart = (state, action) => {
   return updateObject(state, {
@@ -284,6 +304,12 @@ const reducer = (state, action) => {
     case actionTypes.GET_GRADED_ASSIGNMENTS_LIST_FAIL:
       return getGradedASNTListFail(state, action);  
 
+      case actionTypes.GET_FORUM_LIST_START:
+        return getForumListStart(state, action);
+      case actionTypes.GET_FORUM_LIST_SUCCESS:
+        return getForumListSuccess(state, action);
+      case actionTypes.GET_FORUM_LIST_FAIL:
+        return getForumListFail(state, action); 
 
     case actionTypes.CREATE_GRADED_ASSIGNMENT_LIST_START:
       return createGradedASNTListStart(state, action);
@@ -297,10 +323,31 @@ const reducer = (state, action) => {
 };
 
 
+// const useAsyncReducer = (reducer, initialState) => {
+//   const [state, setState] = useState(initialState);
+
+//   const dispatch = async action => {
+//     const result = reducer(state, action);
+//     if (typeof result.then === "function") {
+//       try {
+//         const newState = await result;
+//         setState(newState);
+//       } catch (err) {
+//         setState({ ...state, error: err });
+//       }
+//     } else {
+//       setState(result);
+//     }
+//   };
+
+//   return [state, dispatch];
+// };
+
+// //export default useAsyncReducer;
 
 export const MyContextProvider = props => {
    const [state, dispatch] = useReducer(reducer, initialState);
-
+   //const [state, dispatch] = useAsyncReducer(reducer, initialState);
   return (
     <MyContext.Provider value={{state, dispatch}}>
       {props.children}

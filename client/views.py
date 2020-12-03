@@ -14,7 +14,7 @@ from rest_framework.authentication import SessionAuthentication
 class ChildViewSet(viewsets.ModelViewSet):
     serializer_class = ChildSerializer
     authentication_classes = [ SessionAuthentication,]
-    permission_classes = (permissions.IsAuthenticated, )
+    permission_classes = (permissions.AllowAny, )
     queryset = Child.objects.all()
 
     # def create(self, request):
@@ -28,7 +28,7 @@ class ChildViewSet(viewsets.ModelViewSet):
 
 class ResultViewSet(viewsets.ModelViewSet):
     authentication_classes = [ SessionAuthentication,]
-    permission_classes = (permissions.IsAuthenticated, )
+    permission_classes = (permissions.AllowAny,  )
     serializer_class = ResultSerializer
     queryset = Result.objects.all()
     # def get_queryset(self):

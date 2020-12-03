@@ -1,6 +1,6 @@
 import axios from "axios";
 import * as actionTypes from "./actionTypes";
-// import  {res} from '../clientResult';
+import  {HOST_URL} from '../clientResult';
 
 const getGradedASNTListStart = () => {
   return {
@@ -13,6 +13,25 @@ const getForumListStart = () => {
     type: actionTypes.GET_FORUM_LIST_START
   };
 };
+
+const getCommentsStart = () => {
+  return {
+    type: actionTypes.GET_COMMENTS_START
+  };
+};
+
+const postCommentsStart = () => {
+  return {
+    type: actionTypes.POST_COMMENTS_START
+  };
+};
+
+const postForumStart = () => {
+  return {
+    type: actionTypes.POST_FORUM_START
+  };
+};
+
 
 
 const getGradedASNTListSuccess = res=> {
@@ -27,6 +46,27 @@ const getForumListSuccess = forums => {
   return {
     type: actionTypes.GET_FORUM_LIST_SUCCESS,
     forums: forums
+  };
+};
+
+const getCommentsSuccess = comments => {
+  return {
+    type: actionTypes.GET_COMMENTS_SUCCESS,
+    comments: comments
+  };
+};
+
+const postCommentsSuccess = message => {
+  return {
+    type: actionTypes.POST_COMMENTS_SUCCESS,
+    message: message
+  };
+};
+
+const postForumSuccess = message => {
+  return {
+    type: actionTypes.POST_FORUM_SUCCESS,
+    message: message
   };
 };
 
@@ -54,9 +94,30 @@ const getForumListFail = error => {
   return {
     type: actionTypes.GET_FORUM_LIST_FAIL,
     error: error,
-    
   };
 };
+
+const getCommentsFail = error => {
+  return {
+    type: actionTypes.GET_COMMENTS_FAIL,
+    error: error,
+  };
+};
+
+const postCommentsFail = error => {
+  return {
+    type: actionTypes.POST_COMMENTS_FAIL,
+    error: error,
+  };
+};
+
+const postForumFail = error => {
+  return {
+    type: actionTypes.POST_FORUM_FAIL,
+    error: error,
+  };
+};
+
 
 const createGradedASNTListStart = () => {
   return {
@@ -93,7 +154,7 @@ export const getForum = (token,dispatch) => {
       Authorization: `Token ${token}`
     };
     axios
-      .get("/community/forums/")
+      .get(`${HOST_URL}/community/forums/?ordering=-id`)
       .then(res => {
         const forums = res.data;
         dispatch(getForumListSuccess(forums));
@@ -105,6 +166,75 @@ export const getForum = (token,dispatch) => {
       });
   };
 
+  
+export const getComments = (id,token,dispatch) => {
+ 
+  dispatch(getCommentsStart());
+  console.log(token)
+  axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+  axios.defaults.xsrfCookieName = "csrftoken";
+  axios.defaults.headers = {
+    "Content-Type": "application/json",
+    Authorization: `Token ${token}`
+  };
+  axios
+    .get(`${HOST_URL}/community/comments/?forum=${id}`)
+    .then(res => {
+      const comments = res.data;
+      dispatch(getCommentsSuccess( comments ));
+      console.log( comments , res)
+    })
+    .catch(err => {
+      console.log(err)
+      dispatch(getCommentsFail(err.response.data.message));
+    });
+};
+
+export const postComments = (comm,token,dispatch) => {
+ 
+  dispatch(postCommentsStart());
+  console.log(token)
+  axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+  axios.defaults.xsrfCookieName = "csrftoken";
+  axios.defaults.headers = {
+    "Content-Type": "application/json",
+    Authorization: `Token ${token}`
+  };
+  axios
+    .post(`${HOST_URL}/community/comments/`, comm)
+    .then(res => {
+      const postcomment = res.data;
+      dispatch(postCommentsSuccess( 'Submiited'));
+      console.log( postcomment, res)
+    })
+    .catch(err => {
+      console.log(err)
+      dispatch(postCommentsFail(err.response.data.message));
+    });
+};
+
+export const postForum = (fom,token,dispatch) => {
+ 
+  dispatch(postForumStart());
+  console.log(token)
+  axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+  axios.defaults.xsrfCookieName = "csrftoken";
+  axios.defaults.headers = {
+    "Content-Type": "application/json",
+    Authorization: `Token ${token}`
+  };
+  axios
+    .post(`${HOST_URL}/community/forums/`, fom)
+    .then(res => {
+      const postfom = res.data;
+      dispatch(postForumSuccess( 'Submiited'));
+      console.log( postfom, res)
+    })
+    .catch(err => {
+      console.log(err)
+      dispatch(postForumFail(err.response.data.message));
+    });
+};
 // export const getGradedASNTS = (username, token,dispatch) => {
  
 //     dispatch(getGradedASNTListStart());

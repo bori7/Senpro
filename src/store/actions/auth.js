@@ -1,5 +1,6 @@
 import axios from "axios";
 import * as actionTypes from "./actionTypes";
+import  {HOST_URL} from '../clientResult';
 
 export const authStart = () => {
   return {
@@ -42,7 +43,7 @@ export const authLogin = (username, password, dispatch) => {
     dispatch(authStart());
   
     axios
-      .post("/rest-auth/login/", {
+      .post(`${HOST_URL}/rest-auth/login/`, {
         username: username,
         password: password
       })
@@ -51,7 +52,7 @@ export const authLogin = (username, password, dispatch) => {
           token: res.data.token,
           username:username,
           userId: res.data.user,
-          expirationDate: new Date(new Date().getTime() + 3600 * 1000),
+          expirationDate: new Date(new Date().getTime() + 360000 * 1000),
           error:null
         };
         console.log(user)
@@ -83,18 +84,18 @@ export const authSignup = (
       password2,
     };
     axios
-      .post("/rest-auth/registration/", user)
+      .post(`${HOST_URL}/rest-auth/registration/`, user)
       .then(res => {
         const user = {
           token: res.data.token,
           username:username,
           userId: res.data.user,
-          expirationDate: new Date(new Date().getTime() + 3600 * 1000)
+          expirationDate: new Date(new Date().getTime() + 360000 * 1000)
         };
         localStorage.setItem("user", JSON.stringify(user));
         console.log(user)
         dispatch(authSuccess(user));
-        checkAuthTimeout(3600,dispatch);
+        checkAuthTimeout(360000,dispatch);
       })
       .catch(err => {
         // alert(err.response.request.responseText)

@@ -9,13 +9,18 @@ from rest_framework.status import (
 
 from .models import Comment, Forum
 from .serializers import CommentSerializer, ForumSerializer
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import filters
 
 
 class CommentViewSet(viewsets.ModelViewSet):
-    authentication_classes = [ SessionAuthentication,]
-    serializer_class = CommentSerializer
-    permission_classes = (permissions.IsAuthenticated, )
     queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+    authentication_classes = [ SessionAuthentication,]
+    permission_classes = (permissions.AllowAny, )
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['forum']
+   
 
     # def create(self, request):
     #     serializer = ChildSerializer(data=request.data)
@@ -28,9 +33,11 @@ class CommentViewSet(viewsets.ModelViewSet):
 
 class ForumViewSet(viewsets.ModelViewSet):
     authentication_classes = [ SessionAuthentication,]
-    permission_classes = (permissions.IsAuthenticated, )
+    permission_classes = (permissions.AllowAny, )
     serializer_class = ForumSerializer
     queryset = Forum.objects.all()
+    filter_backends = [filters.OrderingFilter]
+    ordering_fields = ['id']
 
     # def get_queryset(self):
     #     queryset = Result.objects.all()

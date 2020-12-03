@@ -6,7 +6,7 @@ import AlertTemplate from 'react-alert-template-basic'
 import  './static/style.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {MyContextProvider} from './store/context/myContext';
+
 
 const options = {
   // you can also just use 'bottom center'
@@ -19,11 +19,11 @@ const options = {
 
 ReactDOM.render(
   <React.StrictMode>
-  <MyContextProvider>
+  
   <AlertProvider template={AlertTemplate} {...options}>
     <App/>
-    </AlertProvider>
-  </MyContextProvider>
+  </AlertProvider>
+ 
   </React.StrictMode>,
   document.getElementById('root')
 );

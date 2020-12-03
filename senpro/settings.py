@@ -32,7 +32,7 @@ SECRET_KEY = 'lu)5xf0b5ih3fb%u_jwrhmvll1+d5q=&ui8h7(efr#-h8_2kb-'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['senpro2020.herokuapp.com', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['senpro2020.herokuapp.com', '127.0.0.1', 'http://localhost:3000/']
 
 
 # Application definition
@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'whitenoise.runserver_nostatic', 
     'psycopg2',
+    'django_filters',
     
 ]
 

@@ -4,6 +4,7 @@ import React ,{useEffect, useState, useContext, useRef} from "react";
 import {MyContext} from '../store/context/myContext';
 import * as actions from "../store/actions/results";
 import {MenuLayout} from './menu';
+import {ForumContext} from '../store/context/forumContext';
 
 
 export const Forum = (props)=> {
@@ -11,15 +12,17 @@ export const Forum = (props)=> {
     const node = useRef();
 
 
-    // const [initia, setInitia] = useState({});
-    // const [error, setError] = useState(false);
+    const [forumsho, setForumsho] = useState([]);
+    const [searchField, setSearchField] = useState('');
+
     const {state, dispatch} = useContext(MyContext)
+    const {forumstate, forumdispatch} = useContext(ForumContext)
 
 
 
     useEffect(() => {
-        console.log(state.token)
-        
+        setForumsho(forumstate.forums)
+        actions.getForum(state.token, forumdispatch)
         // if (state.token === undefined || state.token === null) {
         //     props.history.push('/login/');
         //  }
@@ -59,8 +62,10 @@ export const Forum = (props)=> {
                     }
                 })
             }
-            actions.getForum(state.token, dispatch)
-    }, [state.token]);
+            console.log(state.token)
+            
+            console.log(forumstate.forums)
+    }, [forumstate.forums,forumstate.comments]);
 
 
     
@@ -75,37 +80,78 @@ const scrollFunction = ()=> {
 window.onscroll = ()=>  {scrollFunction()};
 
 
+const onSearchChange = event => {
+    event.preventDefault();
+    setSearchField(event.target.value );
+  };
 
+const handleClick = (id,e) => {
+    e.preventDefault();
+    actions.getComments(id,state.token, forumdispatch)
+    console.log(forumstate.comments)
+
+}
+const comm  = {}
+const handleAdd = (id,e) => {
+    e.preventDefault();
+    comm["desc"] = e.target.option1.value
+    comm["likes"] = 0
+    comm["user"] = state.userId.pk
+    comm["forum"] = id
+    actions.postComments(comm,state.token, forumdispatch)
+    // console.log(forumstate.comments)
+
+}
+const fom = {}
+const handleSubmit = e => {
+    e.preventDefault();
+ 
+         
+    fom["title"] = e.target.option2.value
+    fom["desc"] = e.target.option3.value
+    fom["likes"] = 0
+    fom["user"] = state.userId.pk
+    
+    actions.postForum(fom,state.token,dispatch)
+
+         
+  }
+  const filteredForumsho = forumsho.filter(forum =>
+    forum.title.toLowerCase().includes(searchField.toLowerCase())
+  );
+
+  var forumshow = forumstate.forums
+ 
 
 return (
     <div ref={node}>
 
             {/* <div class="se-pre-con"></div> */}
 		
-        <div class="jumbotron forum-header bgimg">
+        <div className="jumbotron forum-header bgimg">
         <MenuLayout/>
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="row">
-                            <div class="col-12">	
+            <div className="container-fluid">
+                <div className="row">
+                    <div className="col-md-12">
+                        <div className="row">
+                            <div className="col-12">	
                                 <h1>Forum</h1>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                 <div class="form-group has-search forum-search">
-                                    <span class="fa fa-search form-control-feedback"></span>
-                                    <input type="text" class="form-control" placeholder="Search"/>
+                        <div className="row">
+                            <div className="col-md-6">
+                                 <div className="form-group has-search forum-search">
+                                    <span className="fa fa-search form-control-feedback"></span>
+                                    <input type="search" onChange={onSearchChange}  className="form-control" placeholder="Search Forums"/>
                                   </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="stat">
-                                    <div class="stat-item">
+                            <div className="col-md-6">
+                                <div className="stat">
+                                    <div className="stat-item">
                                         <h2>345</h2>
                                         <p>Threads</p>
                                     </div>
-                                    <div class="stat-item red">
+                                    <div className="stat-item red">
                                         <h2>345</h2>
                                         <p>Members</p>
                                     </div>
@@ -118,40 +164,40 @@ return (
             
         </div>
         
-        <div class="infobar jumbotron">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-12">
+        <div className="infobar jumbotron">
+            <div className="container-fluid">
+                <div className="row">
+                    <div className="col-12">
                         <p style={{color: "#fff"}}>Please keep all discuss on the platform respectful and within our <a href="#">guidelines</a></p>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="thread jumbotron">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="content">
+        <div className="thread jumbotron">
+            <div className="container-fluid">
+                <div className="row">
+                    <div className="col-12">
+                        <div className="content">
                             <h2>All Threads</h2>
-                            <div class="filter-action">
+                            {/* <div className="filter-action">
                                 <p>Filter by</p>
-                                <select class="myselect"><option>Category</option></select>
+                                <select className="myselect"><option>Category</option></select>
                             </div>
-        
+         */}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="thread jumbotron tabsec">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-6">
+        <div className="thread jumbotron tabsec">
+            <div className="container-fluid">
+                <div className="row">
+                    <div className="col-md-6">
                         
-                            <nav class="nav nav-pills nav-justified mytab">
-                              <a class="nav-item nav-link active" data-toggle="tab" href="#expert" role="tab" aria-controls="home" aria-selected="true" >Sendpro Experts</a>
-                              <a class="nav-item nav-link" data-toggle="tab" role="tab" aria-controls="home" aria-selected="false" href="#community">Community</a>
-                              <a class="nav-item nav-link " data-toggle="tab" role="tab" aria-controls="home" aria-selected="false" href="#all">All</a>
+                            <nav className="nav nav-pills nav-justified mytab">
+                              {/* <a class="nav-item nav-link active" data-toggle="tab" href="#expert" role="tab" aria-controls="home" aria-selected="true" >Sendpro Experts</a>
+                              <a class="nav-item nav-link" data-toggle="tab" role="tab" aria-controls="home" aria-selected="false" href="#community">Community</a> */}
+                              <a className="nav-item nav-link " data-toggle="tab" role="tab" aria-controls="home" aria-selected="false" href="#all">All</a>
                             </nav>
                             
                         
@@ -159,162 +205,54 @@ return (
                 </div>
             </div>
         </div>
-        <div class="tab-content" id="myTabContent">
-             <div class="tab-pane fade show active" id="expert" role="tabpanel" aria-labelledby="home-tab">
+        <div className="tab-content" id="myTabContent">
+             <div className="tab-pane fade show active" id="expert" role="tabpanel" aria-labelledby="home-tab">
                 <div id="accordion">
-                    
-                    {/* <!-- connet begin --> */}
+                 		
+        { filteredForumsho.map(forum => (
+                    <div className="" key ={forum.id}>
+                        <div className="topic jumbotron">
+                            <div className="container-fluid">
+                              <h4>{forum.title} ?</h4>
+                              <p>{forum.desc}</p>
         
-        
-        
-                    <div class="">
-                        {/* <div class="topic jumbotron">
-                            <div class="container-fluid">
-                              <h4>Is my child healthy ?</h4>
-                              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco</p>
-        
-                              <div class="topic-meta">
-                                  <div class="leftmeta">
-                                      <p>Ada Adamu</p>
-                                      <p class="post-type new">New</p>
-                                      <p>Added Jan 22. 2020, 10:23pm</p>
+                              <div className="topic-meta">
+                                  <div className="leftmeta">
+                                      <p>{forum.user}</p>
+                                      <p className="post-type new">New</p>
+                                      <p>{forum.created_at}</p>
                                   </div>
-                                  <div class="leftmeta">
-                                      <p><i class="fa fa-eye"></i> 10 views</p>
-                                      <p><i class="fa fa-heart heart-active"></i> 45 hearts</p>
-                                      <p><i class="fa fa-comment"></i> 5 Comments</p>
-                                      
-                                      <button class="btn btn-primary post-toggler" data-toggle="collapse" data-target="#collapse" aria-expanded="true" aria-controls="collapseOne">
-                                     <i class="fa fa-plus toggler"></i>
-                                    </button>
-                                  </div>
-                              </div>
-                          </div>
-                         </div> */}
-                               {/* <div id="collapse" class="collapse greybg " aria-labelledby="headingOne" data-parent="#accordion"> */}
-                                   {/* <div class="jumbotron comment">
-                                       <div class="container-fluid">
-                                           <div class="row">
-                                               <div class="col-12">
-                                              <div class="card-body">
-                                                  <div class="">
-                                                      <p>
-                                                occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.</p>
-                                                <div class="topic-meta">
-                                                      <div class="leftmeta">
-                                                          <p>Ada Adamu</p>
-                                                          <p class="post-type regular">Regular</p>
-                                                          <p>Added Jan 22. 2020, 10:23pm</p>
-                                                      </div>
-                                                      <div class="leftmeta">
-                                                          <p><i class="fa fa-eye"></i> 10 views</p>
-                                                          <p><i class="fa fa-heart heart-active"></i> 45 hearts</p>
-                                                          <p><i class="fa fa-comment"></i> 5 Comments</p>
-                                                          
-                                                          
-                                                      </div>
-                                                  </div>
-                                                </div>
-                                              </div>
-                                             </div>
-                                         </div>
-                                  </div>
-                            </div> */}
-        
-        
-        
-                            {/* <!-- Another commnet --> */}
-        
-{/*         
-                            <div class="jumbotron comment">
-                                       <div class="container-fluid">
-                                           <div class="row">
-                                               <div class="col-12">
-                                              <div class="card-body">
-                                                  <div class="">
-                                                      <p class="quote">
-                                                          occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt
-                                                      </p>
-                                                      <p>
-                                               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laboru</p>
-                                                <div class="topic-meta">
-                                                      <div class="leftmeta">
-                                                          <p>Ada Adamu</p>
-                                                          <p class="post-type admin">Admin</p>
-                                                          <p>Added Jan 22. 2020, 10:23pm</p>
-                                                      </div>
-                                                      <div class="leftmeta">
-                                                          <p><i class="fa fa-eye"></i> 10 views</p>
-                                                          <p><i class="fa fa-heart heart-active"></i> 45 hearts</p>
-                                                          <p><i class="fa fa-comment"></i> 5 Comments</p>
-                                                          
-                                                          
-                                                      </div>
-                                                  </div>
-                                                </div>
-                                              </div>
-                                             </div>
-                                         </div>
-                                  </div>
-                            </div> */}
-        
-                            {/* <!-- end of commnet --> */}
-        
-        
-        
-        
-        
-                            {/* </div>	 */}
-                          
-        
-                    </div>
-        
-        
-                    {/* <!-- ed comment -->					 */}
-        
-        
-                    <div class="">
-                        <div class="topic jumbotron">
-                            <div class="container-fluid">
-                              <h4>Is my child healthy ?</h4>
-                              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco</p>
-        
-                              <div class="topic-meta">
-                                  <div class="leftmeta">
-                                      <p>Ada Adamu</p>
-                                      <p class="post-type new">New</p>
-                                      <p>Added Jan 22. 2020, 10:23pm</p>
-                                  </div>
-                                  <div class="leftmeta">
+                                  <div className="leftmeta">
                                       {/* <p><i class="fa fa-eye"></i> 10 views</p> */}
-                                      <p><i class="fa fa-heart heart-active"></i> 45 hearts</p>
-                                      <p><i class="fa fa-comment"></i> 5 Comments</p>
+                                      <p><i className="fa fa-heart heart-active"></i> {forum.likes} hearts</p>
+                                      <p><i className="fa fa-comment"></i> {forumstate.comments.length} Comments</p>
                                       
-                                      <button class="btn btn-primary post-toggler" data-toggle="collapse" data-target="#collapse2" aria-expanded="true" aria-controls="collapseOne">
-                                     <i class="fa fa-minus toggler"></i>
+                                    <button onClick = {(e) => handleClick(forum.id, e)} className="btn btn-primary post-toggler" data-toggle="collapse" data-target="#collapse2" aria-expanded="true" aria-controls="collapseOne">
+                                         <i className="fa fa-minus toggler"></i>
                                     </button>
                                   </div>
                               </div>
                           </div>
-                         </div>
-                               <div id="collapse2" class="collapse greybg show" aria-labelledby="headingOne" data-parent="#accordion">
-                                   <div class="jumbotron comment">
-                                       <div class="container">
-                                           <div class="row">
-                                               <div class="col-12">
-                                              <div class="card-body">
-                                                  <div class="">
+                        </div>
+                        {forumstate.comments.map(comment => (
+                        <div id="collapse2" className="collapse greybg show" aria-labelledby="headingOne" data-parent="#accordion">
+                                   <div className="jumbotron comment">
+                                       <div className="container">
+                                           <div className="row">
+                                               <div className="col-12">
+                                              <div className="card-body">
+                                                  <div className="">
                                                       <p>
-                                                occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.</p>
-                                                <div class="topic-meta">
-                                                      <div class="leftmeta">
-                                                          <p>Ada Adamu</p>
-                                                          <p class="post-type regular">Regular</p>
-                                                          <p>Added Jan 22. 2020, 10:23pm</p>
+                                               {comment.desc}</p>
+                                                <div className="topic-meta">
+                                                      <div className="leftmeta">
+                                                          <p>{comment.user}</p>
+                                                          <p className="post-type regular">Regular</p>
+                                                          <p>{comment.created_at}</p>
                                                       </div>
-                                                      <div class="leftmeta">
+                                                      <div className="leftmeta">
                                                           {/* <p><i class="fa fa-eye"></i> 10 views</p> */}
-                                                          <p><i class="fa fa-heart heart-active"></i> 45 hearts</p>
+                                                          <p><i className="fa fa-heart heart-active"></i> {comment.likes}hearts</p>
                                                           {/* <p><i class="fa fa-comment"></i> 5 Comments</p> */}
                                                           
                                                           
@@ -324,57 +262,76 @@ return (
                                               </div>
                                              </div>
                                          </div>
-                                  </div>
-                            </div>
-        
-        
-        
-                            {/* <!-- Another commnet --> */}
-        
-        
-                            <div class="jumbotron comment">
-                                       <div class="container-fluid">
-                                           <div class="row">
-                                               <div class="col-12">
-                                              <div class="card-body">
-                                                  <div class="">
-                                                      <p class="quote">
-                                                          occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt
-                                                      </p>
-                                                      <p>
-                                               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laboru</p>
-                                                <div class="topic-meta">
-                                                      <div class="leftmeta">
-                                                          <p>Ada Adamu</p>
-                                                          <p class="post-type admin">Admin</p>
-                                                          <p>Added Jan 22. 2020, 10:23pm</p>
-                                                      </div>
-                                                      <div class="leftmeta">
-                                                          {/* <p><i class="fa fa-eye"></i> 10 views</p> */}
-                                                          <p><i class="fa fa-heart heart-active"></i> 45 hearts</p>
-                                                          {/* <p><i class="fa fa-comment"></i> 5 Comments</p> */}
-                                                          
-                                                          
-                                                      </div>
-                                                  </div>
-                                                </div>
-                                              </div>
-                                             </div>
-                                         </div>
-                                  </div>
-                            </div>
-        
-                            {/* <!-- end of commnet --> */}
+                                        </div>
+                                    </div>
  
-                            </div>	
+                        </div>	
+                         )) }
+                        <div id="collapse2" className="collapse greybg show" aria-labelledby="headingOne" data-parent="#accordion">
+                            <div className=" jumbotron comment">
+                                    <div className="container">
+                                        <div className="row">
+                                            <div className="col-12">
+                                                
+                                                <p>Add your comment</p>
+                                                    
+                                                <form onSubmit={(e) => handleAdd(forum.id, e)}>         
+                                                    <div className="topic-meta">
+                                                
+                                                        <div className="col-md-9">
+                                                            <input input className="question-input form-control" type="text" id = "option1" name = "option1" required />
+                                                        </div> 
+                                                        <button type='submit' value='Submit' className="btn btn-primary deepblue curvebtn my-2 my-sm-0 colorf">Add
+                                                        </button>
+                                                        
+                                                    </div>
+                                                </form>
+                        
+                                        </div>
+                                    </div>
+                            </div>
+                            </div>
+                        </div>
+                                
+            </div>
                           
-        
-                    </div>
+                    
+                 ))      
+                 
+                }
+                
                 </div>
             </div>
-            
+               
         
-            <div class="tab-pane fade" id="all" role="tabpanel" aria-labelledby="contact-tab">maybe</div>
+            <div className="tab-pane fade" id="all" role="tabpanel" aria-labelledby="contact-tab">maybe</div>
+            <div className="topic jumbotron">
+                            <div className="container-fluid">
+                              <h4>Create a Forum</h4>
+                              {/* <p>{forum.desc}</p> */}
+                              <form onSubmit={handleSubmit}>
+                              <div className="container">
+                            
+                              <div className="col-md-7">
+                              <p>Title</p>
+                            <input input className="question-input form-control" type="text" id = "option2" name = "option2" required />
+                            </div>   
+                            <div className="col-md-10">
+                            <p>Description</p>
+                            <input input className="question-input form-control" type="text" id = "option3" name = "option3" required />
+                            </div> 
+                            <br/>
+                            <div className="col-md-10 margin-right" >
+                            <button type="submit" value="Submit" className="btn btn-primary deepblue curvebtn my-2 my-sm-0 colorf">Create
+                                </button>
+                                </div>
+                        </div>
+
+                              
+                            </form>
+                          </div>
+                        </div>
+          
         </div>
         
         

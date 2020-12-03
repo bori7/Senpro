@@ -20,12 +20,14 @@ import {Login} from './component/login';
 import {SignUp} from './component/signup';
 import {CheckOut} from './component/checkout';
 
+
 const BaseRouter = () => (
   <div>
     
     <Route exact path="/" component={Home} />
     <Route exact path="/q1/" component={Question1} />
     <Route exact path="/initial/" component={InitialForm} />
+    
     <Route exact path="/forum/" component={Forum} />
     <Route exact path="/gendev2/" component={GenDev2} />
     <Route exact path="/gendev3/" component={GenDev3} />
