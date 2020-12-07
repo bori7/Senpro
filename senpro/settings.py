@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'main',
     'client',
     'forum',
+    'paystack',
     'rest_framework',
     'rest_framework.authtoken',
     'rest_auth',

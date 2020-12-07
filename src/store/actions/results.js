@@ -233,7 +233,7 @@ export const postForum = (fom,token,dispatch) => {
     })
     .catch(err => {
       console.log(err)
-      dispatch(postForumFail(err.response.data.message));
+      dispatch(postForumFail(err.response.request.responseText));
     });
 };
 // export const getGradedASNTS = (username, token,dispatch) => {

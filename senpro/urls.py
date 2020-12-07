@@ -25,7 +25,7 @@ urlpatterns = [
     path('rest-auth/registration/', include('rest_auth.registration.urls')),
     path('clients/', include('client.urls')),
     path('community/', include('forum.urls')),
+    #path('pay-with-paystack/', include(('paystack.urls', 'paystack'), namespace='paystack')),
     re_path(r'^.*', TemplateView.as_view(template_name='index.html')),
-    
 ]
 
