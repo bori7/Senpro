@@ -5,13 +5,14 @@ import mini_header_2 from '../static/assets/mini_header_2.png';
 // import {q1script} from './q1j.js';
 import { createGradedASNT } from "../store/actions/results";
 import {MyContext} from '../store/context/myContext';
-
+import {ResContext} from '../store/context/resultContext';
 
 export const  Speech= (props) => {
 
     const node = useRef();
     // const node2 = useRef(0);
     // const node3 = useRef();
+    const {resstate, resdispatch} = useContext(ResContext)
     const {state, dispatch} = useContext(MyContext)
     const [initia, setInitia] = useState({});
     // const [alert, setAlert] = useState(false);
@@ -71,57 +72,8 @@ export const  Speech= (props) => {
                     }
                 })
             }
-    //   if(alert){  document.addEventListener('load', fadeOutEffect)}
-    //   else{ document.removeEventListener('load', fadeOutEffect);}
   
-
-    // return () =>  {
-    //     // document.removeEventListener('load', fadeOutEffect);
-    
-    // for (const option of node.current.querySelectorAll(".custom-option")) {
-    //     option.removeEventListener('click', () =>  {
-    //         if (!option.classList.contains('selected')) {
-    //             option.parentNode.querySelector('.custom-option.selected').classList.remove('selected');
-    //             option.classList.add('selected');
-    //             option.closest('.my-custom-select').querySelector('.custom-select__trigger span').textContent = option.textContent;
-    //         }
-    //     })   }
-    //     for (const dropdown of node.current.querySelectorAll(".custom-select-wrapper")) {
-    //         dropdown.removeEventListener('click', ()=> {
-    //             dropdown.querySelector('.my-custom-select').classList.toggle('open');
-    //         })
-            
-    //     }
-    //     document.removeEventListener('click', (e)=>  {
-    //         for (const select of node.current.querySelectorAll('.custom-select')) {
-    //             if (!select.contains(e.target)) {
-    //                 select.classList.remove('open');
-    //             }
-    //         }
-    //     });    
-        
-    //     for (const option of node.current.querySelectorAll(".custom-choice")) {
-    //         option.removeEventListener('click', () =>{
-    //             if (!option.classList.contains('active')) {
-    //                if( option.parentNode.querySelector('.custom-choice.active')){
-    //                 option.parentNode.querySelector('.custom-choice.active').classList.remove('active');}
-    //                 option.classList.add('active');
-    //                 // option.closest('.my-custom-select').querySelector('.custom-select__trigger span').textContent = option.textContent; 
-    //             }
-    //         })
-    //     }
-    
-    // }
-
     }, [state.token]);
-
-
-  
-
-
-  
-
-
 
 const scrollFunction = ()=> {
     if (document.body.scrollTop > 70 || document.documentElement.scrollTop > 70) {
@@ -228,7 +180,7 @@ window.onscroll = ()=>  {scrollFunction()};
                 explain: exp,
                 tips: tip 
             }
-            createGradedASNT(asnt,dispatch);
+            createGradedASNT(asnt,resdispatch);
         // console.log(initial)
         // setInitia(initia)
         props.history.push('/result/');

@@ -4,6 +4,7 @@ import mini_header_2 from '../static/assets/mini_header_2.png';
 import {Link } from "react-router-dom";
 import { getGradedASNTS } from "../store/actions/results";
 import {MyContext} from '../store/context/myContext';
+import {ResContext} from '../store/context/resultContext';
 import main_logo from '../static/assets/main-logo.png';
 import { Divider, Card } from '@material-ui/core'; 
 import { createASNT } from "../store/actions/assignments";
@@ -15,13 +16,15 @@ import { createASNT } from "../store/actions/assignments";
 
 export const Personal = (props) => {
 
-    const {state, dispatch} = useContext(MyContext);
-    const {explain,tips,title} = state;
+    const {resstate, resdispatch} = useContext(ResContext);
+    
+    const {state, dispatch} = useContext(MyContext)
+    const {explain,tips,title} = resstate;
     const node = useRef();
     // const node2 = useRef(0);
     // const node3 = useRef();
 
-    const [initia, setInitia] = useState({});
+    // const [initia, setInitia] = useState({});
     // const [alert, setAlert] = useState(false);
 
     // const fadeOutEffect= useCallback(( )=> {
@@ -42,7 +45,7 @@ export const Personal = (props) => {
     // },[]);
   
     useEffect(() => {
-
+        console.log(explain)
         // getGradedASNTS(dispatch)
         node.current.addEventListener('click', (e)=>  {
             for (const select of node.current.querySelectorAll('.custom-select')) {
@@ -79,7 +82,7 @@ export const Personal = (props) => {
                 })
             }
     
-    }, [state.token]);
+    }, [state.token,explain]);
 
 const scrollFunction = ()=> {
     if (document.body.scrollTop > 70 || document.documentElement.scrollTop > 70) {
@@ -95,7 +98,7 @@ window.onscroll = ()=>  {scrollFunction()};
     // const initial=  {}
 const handleSubmit = e => {
     e.preventDefault();
-    createASNT(cart,dispatch)
+    createASNT(cart,resdispatch)
     props.history.push("/checkout/");
   }
 

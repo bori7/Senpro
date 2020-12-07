@@ -4,7 +4,7 @@ import mini_header_2 from '../static/assets/mini_header_2.png';
 import {Link } from "react-router-dom";
 // import  '../static/style.css';
 // import {q1script} from './q1j.js';
-
+// import {ResContext} from '../store/context/resultContext';
 
 
 export const Age = (props) => {

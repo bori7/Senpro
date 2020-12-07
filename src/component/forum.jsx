@@ -5,15 +5,18 @@ import {MyContext} from '../store/context/myContext';
 import * as actions from "../store/actions/results";
 import {MenuLayout} from './menu';
 import {ForumContext} from '../store/context/forumContext';
-
+import { useAlert } from 'react-alert'
 
 export const Forum = (props)=> {
 
     const node = useRef();
 
-
+    const alert = useAlert()
     const [forumsho, setForumsho] = useState([]);
     const [searchField, setSearchField] = useState('');
+
+    const [toggle, setToggle] = useState(false);
+    // const [come, setCome] = useState({});
 
     const {state, dispatch} = useContext(MyContext)
     const {forumstate, forumdispatch} = useContext(ForumContext)
@@ -62,6 +65,20 @@ export const Forum = (props)=> {
                     }
                 })
             }
+
+    //         node.current.querySelector(node.current).ready(function(){
+    // // Add minus icon for collapse element which is open by default
+    // node.current.querySelector(".collapse.show").each(function(){
+    //     node.current.querySelector(this).prev(".topic").querySelector(".toggler").classList.add("fa-minus").removeClass("fa-plus");
+    //             });
+                
+    //             // Toggle plus minus icon on show hide of collapse element
+    //             node.current.querySelector(".collapse").addEventListener('show.bs.collapse', function(){
+    //                 node.current.querySelector(this).prev(".topic").querySelector(".toggler").removeClass("fa-plus").classList.add("fa-minus");
+    //             }).addEventListener('hide.bs.collapse', function(){
+    //                 node.current.querySelector(this).prev(".topic").querySelector(".toggler").removeClass("fa-minus").classList.add("fa-plus");
+    //             });
+    //         });
             console.log(state.token)
             
             console.log(forumstate.forums)
@@ -79,6 +96,7 @@ const scrollFunction = ()=> {
 
 window.onscroll = ()=>  {scrollFunction()};
 
+// const setcoment = (comment) =>setCome(comment)
 
 const onSearchChange = event => {
     event.preventDefault();
@@ -87,6 +105,7 @@ const onSearchChange = event => {
 
 const handleClick = (id,e) => {
     e.preventDefault();
+    setToggle(!toggle)
     actions.getComments(id,state.token, forumdispatch)
     console.log(forumstate.comments)
 
@@ -94,33 +113,42 @@ const handleClick = (id,e) => {
 const comm  = {}
 const handleAdd = (id,e) => {
     e.preventDefault();
-    comm["desc"] = e.target.option1.value
-    comm["likes"] = 0
-    comm["user"] = state.userId.pk
-    comm["forum"] = id
-    actions.postComments(comm,state.token, forumdispatch)
+    
+
+    if(state.token){
+        comm["desc"] = e.target.option1.value
+        comm["likes"] = 0
+        comm["user"] = state.userId.pk
+        comm["forum"] = id
+        actions.postComments(comm,state.token, forumdispatch)
+    }
+    else{
+        alert.show('You are not LoggedIn',{ type: 'error',})}
+
     // console.log(forumstate.comments)
 
 }
+
 const fom = {}
 const handleSubmit = e => {
     e.preventDefault();
- 
-         
-    fom["title"] = e.target.option2.value
-    fom["desc"] = e.target.option3.value
-    fom["likes"] = 0
-    fom["user"] = state.userId.pk
-    
-    actions.postForum(fom,state.token,dispatch)
+    if(state.token){
+        fom["title"] = e.target.option2.value
+        fom["desc"] = e.target.option3.value
+        fom["likes"] = 0
+        fom["user"] = state.userId.pk
+        
+        actions.postForum(fom,state.token,dispatch)
+    }
+    else{
+        alert.show('You are not LoggedIn',{ type: 'error',})}  
+      }
 
-         
-  }
   const filteredForumsho = forumsho.filter(forum =>
     forum.title.toLowerCase().includes(searchField.toLowerCase())
   );
 
-  var forumshow = forumstate.forums
+//   var forumshow = forumstate.forums
  
 
 return (
@@ -228,14 +256,16 @@ return (
                                       <p><i className="fa fa-comment"></i> {forumstate.comments.length} Comments</p>
                                       
                                     <button onClick = {(e) => handleClick(forum.id, e)} className="btn btn-primary post-toggler" data-toggle="collapse" data-target="#collapse2" aria-expanded="true" aria-controls="collapseOne">
-                                         <i className="fa fa-minus toggler"></i>
+                                         {toggle ? <i className="fa fa-minus toggler"></i> :<i class="fa fa-plus toggler"></i>}
                                     </button>
                                   </div>
                               </div>
                           </div>
                         </div>
-                        {forumstate.comments.map(comment => (
-                        <div id="collapse2" className="collapse greybg show" aria-labelledby="headingOne" data-parent="#accordion">
+                        {forumstate.comments.map(comment => ((toggle && forum.id==comment.forum) ?
+                        
+                        (<div id={forumstate.comments.indexOf(comment)} className="collapse greybg show" aria-labelledby="headingOne" data-parent="#accordion">
+                                   
                                    <div className="jumbotron comment">
                                        <div className="container">
                                            <div className="row">
@@ -253,9 +283,7 @@ return (
                                                       <div className="leftmeta">
                                                           {/* <p><i class="fa fa-eye"></i> 10 views</p> */}
                                                           <p><i className="fa fa-heart heart-active"></i> {comment.likes}hearts</p>
-                                                          {/* <p><i class="fa fa-comment"></i> 5 Comments</p> */}
-                                                          
-                                                          
+                                                          {/* <p><i class="fa fa-comment"></i> 5 Comments</p> */}      
                                                       </div>
                                                   </div>
                                                 </div>
@@ -265,22 +293,21 @@ return (
                                         </div>
                                     </div>
  
-                        </div>	
+                        </div>)	:null
                          )) }
-                        <div id="collapse2" className="collapse greybg show" aria-labelledby="headingOne" data-parent="#accordion">
+                        {(toggle ) ? <div id="collapse2" className="collapse show greybg " aria-labelledby="headingOne" data-parent="#accordion">
                             <div className=" jumbotron comment">
                                     <div className="container">
                                         <div className="row">
                                             <div className="col-12">
                                                 
                                                 <p>Add your comment</p>
-                                                    
                                                 <form onSubmit={(e) => handleAdd(forum.id, e)}>         
                                                     <div className="topic-meta">
                                                 
                                                         <div className="col-md-9">
-                                                            <input input className="question-input form-control" type="text" id = "option1" name = "option1" required />
-                                                        </div> 
+                                                            <textarea  input className="question-input form-control" type="text" id = "option1" name = "option1" required />
+                                                        </div>
                                                         <button type='submit' value='Submit' className="btn btn-primary deepblue curvebtn my-2 my-sm-0 colorf">Add
                                                         </button>
                                                         
@@ -291,34 +318,28 @@ return (
                                     </div>
                             </div>
                             </div>
-                        </div>
+                        </div>: null}
                                 
-            </div>
-                          
-                    
-                 ))      
-                 
-                }
+            </div>   
+                 ))}
                 
                 </div>
             </div>
-               
-        
             <div className="tab-pane fade" id="all" role="tabpanel" aria-labelledby="contact-tab">maybe</div>
             <div className="topic jumbotron">
                             <div className="container-fluid">
-                              <h4>Create a Forum</h4>
+                              <h4>Create a Topic</h4>
                               {/* <p>{forum.desc}</p> */}
                               <form onSubmit={handleSubmit}>
                               <div className="container">
                             
                               <div className="col-md-7">
                               <p>Title</p>
-                            <input input className="question-input form-control" type="text" id = "option2" name = "option2" required />
+                            <textarea input className="question-input form-control" type="text" id = "option2" name = "option2" required />
                             </div>   
                             <div className="col-md-10">
                             <p>Description</p>
-                            <input input className="question-input form-control" type="text" id = "option3" name = "option3" required />
+                            <textarea input className="question-input form-control" type="text" id = "option3" name = "option3" required />
                             </div> 
                             <br/>
                             <div className="col-md-10 margin-right" >
@@ -333,15 +354,5 @@ return (
                         </div>
           
         </div>
-        
-        
-
-
-
-
     </div>
-
-
-)
-
-}
+)}

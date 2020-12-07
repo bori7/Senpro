@@ -19,6 +19,7 @@ import {Personal} from './component/personal';
 import {Login} from './component/login';
 import {SignUp} from './component/signup';
 import {CheckOut} from './component/checkout';
+// import {ResContextProvider} from '../src/store/context/resultContext'
 
 
 const BaseRouter = () => (
@@ -39,11 +40,13 @@ const BaseRouter = () => (
     <Route exact path="/mental/" component={Mental} />
     <Route exact path="/above5/" component={Above5} />
     <Route exact path="/age/" component={Age} />
-    <Route exact path="/result/" component={Personal} />
+
     <Route exact path="/login/" component={Login} />
     <Route exact path="/signup/" component={SignUp} />
+    
+    <Route exact path="/result/" component={Personal} />
     <Route exact path="/checkout/" component={CheckOut} />
-
+   
 
     {/* <Route exact path="/signup/" component={Signup} />
     <Route exact path="/assignments/:id" component={AssignmentDetail} />

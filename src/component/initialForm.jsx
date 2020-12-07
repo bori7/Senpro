@@ -3,6 +3,7 @@ import {MenuLayout} from './menu';
 import mini_header_2 from '../static/assets/mini_header_2.png';
 // import {Redirect } from "react-router-dom";
 import {MyContext} from '../store/context/myContext';
+// import {MyContext} from '../store/context/myContext';
 // import { message } from "antd";
 import * as actions from "../store/actions/assignments";
 

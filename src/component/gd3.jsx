@@ -5,7 +5,7 @@ import mini_header_2 from '../static/assets/mini_header_2.png';
 // import {q1script} from './q1j.js';
 import { createGradedASNT } from "../store/actions/results";
 import {MyContext} from '../store/context/myContext';
-
+import {ResContext} from '../store/context/resultContext';
 
 
 export const  GenDev3= (props) => {
@@ -17,7 +17,7 @@ export const  GenDev3= (props) => {
     const [initia, setInitia] = useState({});
     // const [alert, setAlert] = useState(false);
     const {state, dispatch} = useContext(MyContext)
-
+    const {resstate, resdispatch} = useContext(ResContext)
     // const fadeOutEffect= useCallback(( )=> {
     //     var fadeTarget = node2.current.querySelector('.se-pre-con');
     //     var fadeEffect = setInterval(function () {
@@ -259,7 +259,7 @@ window.onscroll = ()=>  {scrollFunction()};
                                         explain: exp,
                                         tips: tip 
                                     }
-                                    createGradedASNT(asnt,dispatch);
+                                    createGradedASNT(asnt,resdispatch);
                                     // console.log(initial)
                                     // setInitia(initia)
                                     props.history.push('/result/');

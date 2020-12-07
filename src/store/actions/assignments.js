@@ -1,6 +1,6 @@
 import axios from "axios";
 import * as actionTypes from "./actionTypes";
-import  {cart_item} from '../clientResult';
+// import  {cart_item} from '../clientResult';
 import  {HOST_URL} from '../clientResult';
 
 const getASNTListStart = () => {
@@ -45,14 +45,14 @@ const getASNTListFail = error => {
   
 // };
 
-export const getASNTS = (dispatch) => {
+// export const getASNTS = (dispatch) => {
   
-  dispatch(getASNTListStart());
+//   dispatch(getASNTListStart());
    
-  dispatch(getASNTListSuccess(cart_item['cartitem']));
-  console.log(cart_item['cartitem'])
+//   dispatch(getASNTListSuccess(cart_item['cartitem']));
+//   console.log(cart_item['cartitem'])
     
-};
+// };
 
 const getASNTDetailStart = () => {
   return {
@@ -158,11 +158,10 @@ const createChildFail = error => {
 
 export const createASNT = (cart,dispatch) => {
  
- 
   dispatch(createASNTStart());
   // cart_item['cartitem'] = cart
       dispatch(createASNTSuccess('Submitted', cart));
-    console.log(cart_item['cartitem'])
+    console.log(cart)
 
 };
 
@@ -207,7 +206,6 @@ export const createResult = (token, result, dispatch) => {
         console.log(res)
         dispatch(createResultSuccess());
         
-
       })
       .catch(err => {
         console.log(err.response.request.responseText)

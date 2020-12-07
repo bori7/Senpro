@@ -4,6 +4,7 @@ import mini_header_2 from '../static/assets/mini_header_2.png';
 import {Link } from "react-router-dom";
 import { getASNTS } from "../store/actions/assignments";
 import {MyContext} from '../store/context/myContext';
+import {ResContext} from '../store/context/resultContext';
 import CheckoutItem from './checkout-item/checkout-item.component';
 import StripeCheckoutButton from './stripe-button/stripe-button.component';
 
@@ -19,7 +20,8 @@ export const CheckOut = (props) => {
 
     // const [initia, setInitia] = useState({});
     const {state, dispatch} = useContext(MyContext);
-    const {cartItems} = state;
+    const {resstate, resdispatch} = useContext(ResContext);
+    const {cartItems} = resstate;
     // const [alert, setAlert] = useState(false);
 
     // const fadeOutEffect= useCallback(( )=> {
@@ -76,47 +78,7 @@ export const CheckOut = (props) => {
                     }
                 })
             }
-    //   if(alert){  document.addEventListener('load', fadeOutEffect)}
-    //   else{ document.removeEventListener('load', fadeOutEffect);}
-  
-
-    // return () =>  {
-    //     // document.removeEventListener('load', fadeOutEffect);
-    
-    // for (const option of node.current.querySelectorAll(".custom-option")) {
-    //     option.removeEventListener('click', () =>  {
-    //         if (!option.classList.contains('selected')) {
-    //             option.parentNode.querySelector('.custom-option.selected').classList.remove('selected');
-    //             option.classList.add('selected');
-    //             option.closest('.my-custom-select').querySelector('.custom-select__trigger span').textContent = option.textContent;
-    //         }
-    //     })   }
-    //     for (const dropdown of node.current.querySelectorAll(".custom-select-wrapper")) {
-    //         dropdown.removeEventListener('click', ()=> {
-    //             dropdown.querySelector('.my-custom-select').classList.toggle('open');
-    //         })
-            
-    //     }
-    //     document.removeEventListener('click', (e)=>  {
-    //         for (const select of node.current.querySelectorAll('.custom-select')) {
-    //             if (!select.contains(e.target)) {
-    //                 select.classList.remove('open');
-    //             }
-    //         }
-    //     });    
-        
-    //     for (const option of node.current.querySelectorAll(".custom-choice")) {
-    //         option.removeEventListener('click', () =>{
-    //             if (!option.classList.contains('active')) {
-    //                if( option.parentNode.querySelector('.custom-choice.active')){
-    //                 option.parentNode.querySelector('.custom-choice.active').classList.remove('active');}
-    //                 option.classList.add('active');
-    //                 // option.closest('.my-custom-select').querySelector('.custom-select__trigger span').textContent = option.textContent; 
-    //             }
-    //         })
-    //     }
-    
-    // }
+   
 
     }, [state.token]);
 
@@ -124,9 +86,6 @@ export const CheckOut = (props) => {
 // const cartItems = {}
 var total = 0
   
-
-
-
 const scrollFunction = ()=> {
     if (document.body.scrollTop > 70 || document.documentElement.scrollTop > 70) {
     document.getElementById("scrollnav").style.top = "0";

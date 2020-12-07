@@ -5,7 +5,7 @@ import mini_header_2 from '../static/assets/mini_header_2.png';
 // import {q1script} from './q1j.js';
 import { createGradedASNT } from "../store/actions/results";
 import {MyContext} from '../store/context/myContext';
-
+import {ResContext} from '../store/context/resultContext';
 
 
 
@@ -15,7 +15,7 @@ export const GenDev2= (props) => {
     // const node2 = useRef(0);
     // const node3 = useRef();
     const {state, dispatch} = useContext(MyContext)
-
+    const {resstate, resdispatch} = useContext(ResContext)
     const [initia, setInitia] = useState({});
     // const [alert, setAlert] = useState(false);
 
@@ -256,7 +256,7 @@ window.onscroll = ()=>  {scrollFunction()};
                     explain: exp,
                     tips: tip 
                 }
-                createGradedASNT(asnt,dispatch);
+                createGradedASNT(asnt,resdispatch);
             // console.log(initial)
             // setInitia(initia)
             props.history.push('/result/');
@@ -680,7 +680,7 @@ window.onscroll = ()=>  {scrollFunction()};
                             <br/>
                             <br/>
                         <div className="col-12 step-control">
-                                <button onclick = {handleReturn} className="btn btn-primary deepblue curvebtn my-2 my-sm-0 colorf">Previous
+                                <button onClick = {handleReturn} className="btn btn-primary deepblue curvebtn my-2 my-sm-0 colorf">Previous
                                 </button>
                                 <button type="submit" value="Submit" className="btn btn-primary deepblue curvebtn my-2 my-sm-0 colorf">Submit
                                 </button>
