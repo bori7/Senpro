@@ -19,6 +19,7 @@ import {Personal} from './component/personal';
 import {Login} from './component/login';
 import {SignUp} from './component/signup';
 import {CheckOut} from './component/checkout';
+import {Pay} from './component/paystack';
 // import {ResContextProvider} from '../src/store/context/resultContext'
 
 
@@ -46,6 +47,8 @@ const BaseRouter = () => (
     
     <Route exact path="/result/" component={Personal} />
     <Route exact path="/checkout/" component={CheckOut} />
+
+    <Route exact path="/pay/" component={Pay} />
    
 
     {/* <Route exact path="/signup/" component={Signup} />

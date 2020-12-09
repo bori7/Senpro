@@ -7,7 +7,7 @@ import {MyContext} from '../store/context/myContext';
 import {ResContext} from '../store/context/resultContext';
 import CheckoutItem from './checkout-item/checkout-item.component';
 import StripeCheckoutButton from './stripe-button/stripe-button.component';
-
+import {Pay} from './paystack';
 
 import './checkout.styles.scss';
 
@@ -204,12 +204,14 @@ window.onscroll = ()=>  {scrollFunction()};
       <CheckoutItem key={cartItems.indexOf(cartItem)} cartItem={cartItem} />
     ))}
     <div className='total'>TOTAL: ${total}</div>
-    <div className='test-warning'>
-      *Please use the following test credit card for payments*
+    <div className='total'>
+      {/* *Please use the following test credit card for payments* */}
       <br />
-      4242 4242 4242 4242 - Exp: 01/20 - CVV: 123
+      <Pay />
+      {/* 4242 4242 4242 4242 - Exp: 01/20 - CVV: 123 */}
     </div>
-    <StripeCheckoutButton price={total} />
+    
+    {/* <StripeCheckoutButton price={total} /> */}
   </div>
 
                         {/* <div className="row questions">
