@@ -11,6 +11,7 @@ class StringSerializer(serializers.StringRelatedField):
 
 
 class ForumSerializer(serializers.ModelSerializer):
+    user = serializers.StringRelatedField(many=False)
  
     class Meta:
         model = Forum
@@ -18,6 +19,7 @@ class ForumSerializer(serializers.ModelSerializer):
 
 
 class CommentSerializer(serializers.ModelSerializer):
+    user = serializers.StringRelatedField(many=False)
     # questions = serializers.SerializerMethodField()
     # parent = StringSerializer(many=False)
 

@@ -19,7 +19,7 @@ class Child(models.Model):
         User, on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
     email = models.EmailField(max_length = 254)
-    phone = models.IntegerField(null=False, blank=False, unique=True)
+    phone = models.IntegerField(null=False, blank=False, unique=False)
     # phone = PhoneNumberField(null=False, blank=False, unique=True)
     D_O_B = models.DateField(null=False, blank=False, unique=False)
 

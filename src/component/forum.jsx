@@ -241,14 +241,15 @@ return (
                     <div className="" key ={forum.id}>
                         <div className="topic jumbotron">
                             <div className="container-fluid">
-                              <h4>{forum.title} ?</h4>
+                              <h4>{forum.title}</h4>
                               <p>{forum.desc}</p>
         
                               <div className="topic-meta">
                                   <div className="leftmeta">
                                       <p>{forum.user}</p>
                                       <p className="post-type new">New</p>
-                                      <p>{forum.created_at}</p>
+                                      <p>{(new Date(forum.created_at)).toLocaleDateString()} 
+                                     _{(new Date(forum.created_at)).toLocaleTimeString()}</p>
                                   </div>
                                   <div className="leftmeta">
                                       {/* <p><i class="fa fa-eye"></i> 10 views</p> */}
